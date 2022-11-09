@@ -2,6 +2,7 @@
 
 import ElementList from "./Elementlist";
 import Title from "./Title";
+import Button from "./Button";
 
 //----------------------
 
@@ -24,6 +25,28 @@ class Game {
   displayMenu() {
     this.elementList = new ElementList();
     this.elementList.add(new Title(this.canvas.width, this.canvas.height));
+    this.elementList.add(
+      new Button(
+        this.canvas.width / 2 - 300 / 2,
+        this.canvas.height / 2 - 50,
+        300,
+        100,
+        "Start Game",
+        "green",
+        "white"
+      )
+    );
+    this.elementList.add(
+      new Button(
+        this.canvas.width / 2 - 300 / 2,
+        this.canvas.height / 2 + 100,
+        300,
+        100,
+        "Handbuch anzeigen",
+        "green",
+        "white"
+      )
+    );
 
     this.timeOfLastFrame = Date.now();
     this.raf = window.requestAnimationFrame(this.tick.bind(this));

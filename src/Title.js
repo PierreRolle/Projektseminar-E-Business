@@ -7,8 +7,6 @@ class Title extends Element {
     super();
     this.x = canvasWidth / 2;
     this.y = canvasHeight / 3;
-    this.width = 0;
-    this.height = 0;
     this.text = "Die Schatzinsel";
     this.fontSize = 100;
     this.font = "Arial";
