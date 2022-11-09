@@ -9,7 +9,7 @@
     "dev": "snowpack dev"
   },
   "keywords": [],
-  "author": "Ralf Peters",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "snowpack": "^3.8.8"
