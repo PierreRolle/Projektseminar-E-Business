@@ -3,6 +3,7 @@
 import ElementList from "./Elementlist";
 import Title from "./Title";
 import Button from "./Button";
+import { createTitle, createStartButton, createManualButton } from "./utils";
 
 //----------------------
 
@@ -30,40 +31,31 @@ class Game {
   }
 
   displayMenu() {
-    const startButtonOnClick = () => {
-      console.log("starte spiel");
-    };
     this.elementList = new ElementList();
-    this.elementList.add(new Title(this.canvas.width, this.canvas.height));
+    this.elementList.add(createTitle(this.canvas));
     this.elementList.add(
-      new Button(
-        this.canvas.width / 2 - 300 / 2,
-        this.canvas.height / 2 - 50,
-        300,
-        100,
-        "Spiel starten",
-        "white",
-        "black",
-        startButtonOnClick
-      )
+      createStartButton(this.canvas, this.startGame.bind(this))
     );
     this.elementList.add(
-      new Button(
-        this.canvas.width / 2 - 300 / 2,
-        this.canvas.height / 2 + 100,
-        300,
-        100,
-        "Handbuch",
-        "white",
-        "black",
-        () => {
-          console.log("anzeigen");
-        }
-      )
+      createManualButton(this.canvas, this.displayManual.bind(this))
     );
 
     this.timeOfLastFrame = Date.now();
     this.raf = window.requestAnimationFrame(this.tick.bind(this));
+  }
+
+  startGame() {
+    this.elementList = new ElementList();
+    this.elementList.add(
+      new Title(this.canvas.width, this.canvas.height, "Spiel läuft")
+    );
+  }
+
+  displayManual() {
+    this.elementList = new ElementList();
+    this.elementList.add(
+      new Title(this.canvas.width, this.canvas.height, "Handbuch")
+    );
   }
 
   //----------------------
@@ -77,7 +69,7 @@ class Game {
 
   tick() {
     //--- clear screen
-    this.ctx.fillStyle = "rgba(235, 250, 255, 0)"; // alpha < 1 löscht den Bildschrim nur teilweise -> bewegte Gegenstände erzeugen Spuren
+    this.ctx.fillStyle = "rgba(255, 255, 255, 1)"; // alpha < 1 löscht den Bildschrim nur teilweise -> bewegte Gegenstände erzeugen Spuren
     this.ctx.fillRect(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
 
     //--- draw elements

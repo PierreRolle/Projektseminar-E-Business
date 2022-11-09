@@ -3,11 +3,11 @@
 import Element from "./Element";
 
 class Title extends Element {
-  constructor(canvasWidth, canvasHeight) {
+  constructor(canvasWidth, canvasHeight, text) {
     super();
     this.x = canvasWidth / 2;
     this.y = canvasHeight / 3;
-    this.text = "Die Schatzinsel";
+    this.text = text;
     this.fontSize = 100;
     this.font = "Arial";
     this.color = "black";
