@@ -7,11 +7,19 @@ import ElementList from "./Elementlist";
 
 class Game {
   constructor() {
+    this.canvas = window.document.getElementById("mycanvas");
+    this.ctx = this.canvas.getContext("2d");
+    this.setCanvasSize();
     this.raf; // request animation frame handle
     this.elementList = null;
   }
 
   //----------------------
+
+  setCanvasSize() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+  }
 
   start() {
     this.elementList = new ElementList();
@@ -33,16 +41,12 @@ class Game {
   //----------------------
 
   tick() {
-    let mycanvas = window.document.getElementById("mycanvas");
-
-    let ctx = mycanvas.getContext("2d");
-
     //--- clear screen
-    ctx.fillStyle = "rgba(235, 250, 255, 0.05)"; // alpha < 1 löscht den Bildschrim nur teilweise -> bewegte Gegenstände erzeugen Spuren
-    ctx.fillRect(0, 0, mycanvas.clientWidth, mycanvas.clientHeight);
+    this.ctx.fillStyle = "rgba(235, 250, 255, 0)"; // alpha < 1 löscht den Bildschrim nur teilweise -> bewegte Gegenstände erzeugen Spuren
+    this.ctx.fillRect(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
 
     //--- draw elements
-    this.elementList.draw(ctx);
+    this.elementList.draw(this.ctx);
 
     //--- execute element actions
     this.elementList.action();
