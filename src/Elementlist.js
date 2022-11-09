@@ -30,6 +30,12 @@ class ElementList extends Array {
   }
 
   checkCollision(element) {}
+
+  mouseClick(e) {
+    for (let i = 0; i < this.length; i++) {
+      this[i].mouseClick(e);
+    }
+  }
 }
 
 export default ElementList;

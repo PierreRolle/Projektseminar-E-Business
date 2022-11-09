@@ -24,6 +24,10 @@ class Title extends Element {
     ctx.textBaseline = this.baseline;
     ctx.fillText(this.text, this.x, this.y);
   }
+
+  //----------------------
+
+  mouseClick(e) {}
 }
 
 export default Title;

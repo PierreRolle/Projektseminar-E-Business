@@ -1,7 +1,7 @@
 import Element from "./Element";
 
 class Button extends Element {
-  constructor(x, y, width, height, text, color, textColor) {
+  constructor(x, y, width, height, text, color, textColor, onClick) {
     super();
     this.x = x;
     this.y = y;
@@ -10,6 +10,7 @@ class Button extends Element {
     this.text = text;
     this.color = color;
     this.textColor = textColor;
+    this.onClick = onClick;
   }
 
   draw(ctx) {
@@ -20,6 +21,17 @@ class Button extends Element {
     ctx.font = "30px Arial";
     ctx.textAlign = "center";
     ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2);
+  }
+
+  mouseClick(e) {
+    if (
+      e.clientX > this.x &&
+      e.clientX < this.x + this.width &&
+      e.clientY > this.y &&
+      e.clientY < this.y + this.height
+    ) {
+      this.onClick();
+    }
   }
 }
 

@@ -13,9 +13,16 @@ class Game {
     this.setCanvasSize();
     this.raf; // request animation frame handle
     this.elementList = null;
+    this.canvas.addEventListener("click", this.createMouseClickHandler());
   }
 
   //----------------------
+
+  createMouseClickHandler() {
+    return (event) => {
+      this.elementList.mouseClick(event);
+    };
+  }
 
   setCanvasSize() {
     this.canvas.width = window.innerWidth;
@@ -23,6 +30,9 @@ class Game {
   }
 
   displayMenu() {
+    const startButtonOnClick = () => {
+      console.log("starte spiel");
+    };
     this.elementList = new ElementList();
     this.elementList.add(new Title(this.canvas.width, this.canvas.height));
     this.elementList.add(
@@ -31,9 +41,10 @@ class Game {
         this.canvas.height / 2 - 50,
         300,
         100,
-        "Start Game",
-        "green",
-        "white"
+        "Spiel starten",
+        "white",
+        "black",
+        startButtonOnClick
       )
     );
     this.elementList.add(
@@ -42,9 +53,12 @@ class Game {
         this.canvas.height / 2 + 100,
         300,
         100,
-        "Handbuch anzeigen",
-        "green",
-        "white"
+        "Handbuch",
+        "white",
+        "black",
+        () => {
+          console.log("anzeigen");
+        }
       )
     );
 
