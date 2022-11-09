@@ -1,53 +1,54 @@
-"use strict"
+"use strict";
 
-const RandomWalkCircleElement = require('./randomwalkcircleelement')
-const ElementList = require('./elementlist')
+import RandomWalkCircleElement from "./Randomwalkcircleelement";
+import ElementList from "./Elementlist";
 
 //----------------------
 
-module.exports = class Game {
+class Game {
+  constructor() {
+    this.raf; // request animation frame handle
+    this.elementList = null;
+  }
 
-    constructor() {
-        this.raf                       // request animation frame handle
-        this.elementList = null
+  //----------------------
+
+  start() {
+    this.elementList = new ElementList();
+    for (let i = 0; i < 60; i++) {
+      this.elementList.add(new RandomWalkCircleElement(i * 10, 150));
     }
 
-    //----------------------
+    this.timeOfLastFrame = Date.now();
+    this.raf = window.requestAnimationFrame(this.tick.bind(this));
+  }
 
-    start() {
-        this.elementList = new ElementList()
-        for (let i = 0; i < 60; i++) {
-            this.elementList.add(new RandomWalkCircleElement(i * 10, 150))
-        }
+  //----------------------
 
-        this.timeOfLastFrame = Date.now()
-        this.raf = window.requestAnimationFrame(this.tick.bind(this))
-    }
+  stop() {
+    window.cancelAnimationFrame(this.raf);
+    this.elementList = null;
+  }
 
-    //----------------------
+  //----------------------
 
-    stop() {
-        window.cancelAnimationFrame(this.raf)
-        this.elementList = null
-    }
+  tick() {
+    let mycanvas = window.document.getElementById("mycanvas");
 
-    //----------------------
+    let ctx = mycanvas.getContext("2d");
 
-    tick() {
-        let mycanvas = window.document.getElementById("mycanvas")
+    //--- clear screen
+    ctx.fillStyle = "rgba(235, 250, 255, 0.05)"; // alpha < 1 löscht den Bildschrim nur teilweise -> bewegte Gegenstände erzeugen Spuren
+    ctx.fillRect(0, 0, mycanvas.clientWidth, mycanvas.clientHeight);
 
-        let ctx = mycanvas.getContext('2d')
+    //--- draw elements
+    this.elementList.draw(ctx);
 
-        //--- clear screen
-        ctx.fillStyle = 'rgba(235, 250, 255, 0.05)'        // alpha < 1 löscht den Bildschrim nur teilweise -> bewegte Gegenstände erzeugen Spuren
-        ctx.fillRect(0, 0, mycanvas.clientWidth, mycanvas.clientHeight)
+    //--- execute element actions
+    this.elementList.action();
 
-        //--- draw elements
-        this.elementList.draw(ctx)
-
-        //--- execute element actions
-        this.elementList.action()
-
-        this.raf = window.requestAnimationFrame(this.tick.bind(this))
-    }
+    this.raf = window.requestAnimationFrame(this.tick.bind(this));
+  }
 }
+
+export default Game;

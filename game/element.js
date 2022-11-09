@@ -1,10 +1,11 @@
-"use strict"
+"use strict";
 
-module.exports = class Element {
+class Element {
+  action() {}
 
-    action() { }
+  draw(ctx) {}
 
-    draw(ctx) { }
-
-    checkCollision(element) { }
+  checkCollision(element) {}
 }
+
+export default Element;
