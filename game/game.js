@@ -1,7 +1,7 @@
 "use strict";
 
-import RandomWalkCircleElement from "./Randomwalkcircleelement";
 import ElementList from "./Elementlist";
+import Title from "./Title";
 
 //----------------------
 
@@ -21,11 +21,9 @@ class Game {
     this.canvas.height = window.innerHeight;
   }
 
-  start() {
+  displayMenu() {
     this.elementList = new ElementList();
-    for (let i = 0; i < 60; i++) {
-      this.elementList.add(new RandomWalkCircleElement(i * 10, 150));
-    }
+    this.elementList.add(new Title(this.canvas.width, this.canvas.height));
 
     this.timeOfLastFrame = Date.now();
     this.raf = window.requestAnimationFrame(this.tick.bind(this));
