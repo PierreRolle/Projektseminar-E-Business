@@ -5,7 +5,7 @@
 module.exports = {
   mount: {
     public: { url: "/" },
-    game: { url: "/game" },
+    src: { url: "/src" },
   },
   plugins: [
     /* ... */
