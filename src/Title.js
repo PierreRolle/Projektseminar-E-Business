@@ -8,7 +8,7 @@ class Title extends Element {
     this.x = canvasWidth / 2;
     this.y = canvasHeight / 3;
     this.text = text;
-    this.fontSize = 100;
+    this.fontSize = 90;
     this.font = "Arial";
     this.color = "black";
     this.align = "center";

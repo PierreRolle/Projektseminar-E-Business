@@ -3,7 +3,7 @@
 import ElementList from "./Elementlist";
 import Title from "./Title";
 import Button from "./Button";
-import { createTitle, createStartButton, createManualButton } from "./utils";
+import { createTitle, createStartButton, createManualButton, createBackgroundLevel1, createBackgroundStart } from "./utils";
 
 //----------------------
 
@@ -32,6 +32,7 @@ class Game {
 
   displayMenu() {
     this.elementList = new ElementList();
+    this.elementList.add(createBackgroundStart(this.canvas));
     this.elementList.add(createTitle(this.canvas));
     this.elementList.add(
       createStartButton(this.canvas, this.startGame.bind(this))
@@ -47,7 +48,7 @@ class Game {
   startGame() {
     this.elementList = new ElementList();
     this.elementList.add(
-      new Title(this.canvas.width, this.canvas.height, "Spiel läuft")
+    createBackgroundLevel1(this.canvas)
     );
   }
 
