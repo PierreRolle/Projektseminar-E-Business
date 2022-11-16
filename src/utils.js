@@ -1,5 +1,6 @@
 import Title from "./Title";
 import Button from "./Button";
+import Background from "./Background";
 
 function createTitle(canvas) {
   return new Title(canvas.width, canvas.height, "Die Schatzinsel");
@@ -31,4 +32,19 @@ function createManualButton(canvas, onClick) {
   );
 }
 
-export { createTitle, createStartButton, createManualButton };
+function createBackgroundStart(canvas){
+  return new Background(
+    canvas.width,
+    canvas.height,
+    '../img/HintergrundStartseite.png'
+  )
+}
+
+function createBackgroundLevel1(canvas){
+  return new Background(
+    canvas.width,
+    canvas.height,
+    '../img/HintergrundLevel1.png'
+  )
+}
+export { createTitle, createStartButton, createManualButton, createBackgroundStart, createBackgroundLevel1 };
