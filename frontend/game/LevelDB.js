@@ -110,5 +110,6 @@ const levelArray = [
 ];
 
 export default function getLevelFromDb(levelId) {
-  return levelArray[levelId];
+  let level = JSON.parse(JSON.stringify(levelArray[levelId]));
+  return level;
 }
