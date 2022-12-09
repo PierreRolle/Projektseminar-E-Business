@@ -1,0 +1,19 @@
+.button {
+    display: block;
+    text-align: center;
+    width: 300px;
+    margin: 80px;
+    padding: 12px 18px;
+    font-weight: 1000;
+    text-decoration: none;
+    color: black;
+    background-color: bisque;
+    border: 2px solid #222222 ;
+    border-radius: 7.5px;
+}
+
+
+.button:hover {
+    background-color: rgb(253, 234, 209);
+    color: rgb(15, 15, 15);
+}
