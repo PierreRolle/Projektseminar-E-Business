@@ -1,113 +1,102 @@
-/**
- * jeder Eintrag des Arrays repräsentiert eine Reihe der y-Achse 0-12
- * jeder Eintrag hat ein Array der Größe 13
- * jeder String in dem Sub-Array steht für ein Tile
- */
-const levelArray = [
-  {
-    startPosition: [0, 0],
-    endPosition: [5,12],
-    backgroundArray: [
-      ["5", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "6"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["4", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "13", "2"],
-      ["8", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "7"],
-    ],
-    itemArray: [
-      ["p", "t2", "t2", "t2", "t2", "t2", "t2", "t2", "t2", "t2", "t2", "t2", "t2"],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["s", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["s", "", "", "", "", "", "", "", "t2", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "t2", "", "", "", "", ""],
-      ["s", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "t2", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "s", "l1", "", "", "", "", "", "", "t2"],
-    ],
-  },
-  {
-    startPosition: [12, 12],
-    endPosition: [12,5],
-    backgroundArray: [
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-    ],
-    itemArray: [
-      ["", "t2", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "t2", "", "", ""],
-      ["t2", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "t2", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "t2", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "t2", "", "", ""],
-      ["t2", "", "", "", "", "l1", "", "", "", "", "", "", "p"],
-    ],
-  },
-  {
-    startPosition: [5, 6],
-    endPosition: [12,5],
-    backgroundArray: [
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-    ],
-    itemArray: [
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "p", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-    ],
-  },
-];
+export default class Level {
+  constructor(level) {
+    this.startPosition = level.startPosition;
+    this.endPosition = level.endPosition;
+    this.currPlayerPosition = level.startPosition;
+    this.backgroundArray = level.backgroundArray;
+    this.itemArray = level.itemArray;
+  }
 
-export default function getLevel(levelId) {
-  return levelArray[levelId];
+  setBackgroundArray(backgroundArray) {
+    this.backgroundArray = backgroundArray;
+  }
+
+  setItemArray(itemArray) {
+    this.itemArray = itemArray;
+  }
+
+  setCurrPlayerPositionFromXY(moveX, moveY) {
+    let array = this.currPlayerPosition;
+    array = [array[0] + moveX, array[1] + moveY];
+    this.currPlayerPosition = array;
+  }
+
+  setCurrPlayerPosition(currPlayerPosition) {
+    this.currPlayerPosition = currPlayerPosition;
+  }
+
+  movePlayerInArray(moveX, moveY) {
+    let array = this.itemArray;
+    array[this.currPlayerPosition[1]][this.currPlayerPosition[0]] = "";
+
+    if (
+      this.endPosition[0] == this.currPlayerPosition[0] &&
+      this.endPosition[1] == this.currPlayerPosition[1]
+    ) {
+      array[this.currPlayerPosition[1]][this.currPlayerPosition[0]] = "l1";
+    }
+
+    array[this.currPlayerPosition[1] + moveY][
+      this.currPlayerPosition[0] + moveX
+    ] = "p";
+
+    this.setItemArray(array);
+    this.setCurrPlayerPositionFromXY(moveX, moveY);
+  }
+
+  checkCollision(moveX, moveY) {
+    let itemAhead =
+      this.itemArray[this.currPlayerPosition[1] + moveY][
+        this.currPlayerPosition[0] + moveX
+      ];
+
+    let isWallAhead =
+      this.backgroundArray[this.currPlayerPosition[1] + moveY][
+        this.currPlayerPosition[0] + moveX
+      ] == "" ||
+      this.backgroundArray[this.currPlayerPosition[1] + moveY][
+        this.currPlayerPosition[0] + moveX
+      ] == "13";
+    if (itemAhead != "s" && !isWallAhead) {
+      if (itemAhead == "") {
+        return "leer";
+      }
+      return itemAhead;
+    }
+    return false;
+  }
+
+  checkCanExitLevel(game) {
+    return (
+      game.currentLevel < game.maxLevel &&
+      this.currPlayerPosition[0] == this.endPosition[0] &&
+      this.currPlayerPosition[1] == this.endPosition[1]
+    );
+  }
+
+  placeTnt() {
+    let array;
+    for (let i = -1; i < 2; i++) {
+      for (let j = -1; j < 2; j++) {
+        if (
+          this.currPlayerPosition[1] + i >= 0 &&
+          this.currPlayerPosition[1] + i <= 12 &&
+          this.currPlayerPosition[0] + j >= 0 &&
+          this.currPlayerPosition[0] + j <= 12
+        ) {
+          if (
+            this.itemArray[this.currPlayerPosition[1] + i][
+              this.currPlayerPosition[0] + j
+            ] == "s"
+          ) {
+            array = this.itemArray;
+            array[this.currPlayerPosition[1] + i][
+              this.currPlayerPosition[0] + j
+            ] = "";
+          }
+        }
+      }
+    }
+    this.setItemArray(array);
+  }
 }

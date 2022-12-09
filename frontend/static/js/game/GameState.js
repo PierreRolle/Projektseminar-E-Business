@@ -1,188 +1,113 @@
-import getLevel from "./Level.js";
-import movePlayer, {
-  checkCollision,
-  drawBackground,
-  drawItems,
-  placeTnt,
-} from "./util.js";
+import Game from "./Game.js";
+import Field from "./Field.js";
+import Level from "./Level.js";
+import getLevelFromDb from "./LevelDB.js";
 
 export default function startGame() {
-  let currentLevel = 0;
-  var maxLevel = 2;
-
-  let life = 3;
-  let bombCount = 0;
-
-  var canvas = document.getElementById("gameCanvas");
+  let canvas = document.getElementById("gameCanvas");
   let ctx = canvas.getContext("2d");
 
-  var backgroundImage = new Image();
+  let backgroundImage = new Image();
   backgroundImage.src = "/static/images/TileSetBackground.png";
-  var itemImage = new Image();
+  let itemImage = new Image();
   itemImage.src = "/static/images/TileSetItems.png";
-  var playerImage = new Image();
+  let playerImage = new Image();
   playerImage.src = "/static/images/tiles/Spieler.png";
 
-  const playLevel = (levelIndex) => {
-    let level = getLevel(levelIndex);
-    let backgroundArray = level.backgroundArray;
-    let itemArray = level.itemArray;
-    let currPlayerPosition = level.startPosition;
+  const field = new Field(ctx, backgroundImage, itemImage, playerImage);
 
-    backgroundImage.onload = () => {
-      drawBackground(backgroundImage, backgroundArray, ctx);
-    };
+  let levelFromDb = getLevelFromDb(0);
+  let firstLevel = new Level(levelFromDb);
+  
+
+  let gameProbs = {
+    currentLevel: 0,
+    maxLevel: 2,
+    lifeCount: 3,
+    bombCount: 0,
+    level: firstLevel,
+    field: field,
+  };
+
+  const game = new Game(gameProbs);
+
+  const playLevel = (levelIndex) => {
+    game.setLevel(getLevelFromDb(levelIndex));
 
     playerImage.onload = () => {
-      drawItems(itemImage, playerImage, itemArray, ctx);
+      game.field.drawBackground(game.level.backgroundArray);
+      game.field.drawItems(game.level.itemArray);
     };
 
     window.addEventListener("keydown", (e) => {
       switch (e.key) {
         case "w":
-          if (currPlayerPosition[1] > 0) {
-            var isTnt = false;
-            if (
-              (isTnt = checkCollision(
-                currPlayerPosition,
-                0,
-                -1,
-                backgroundArray,
-                itemArray
-              )) != false
-            ) {
-              itemArray = movePlayer(
-                currPlayerPosition,
-                level.endPosition,
-                0,
-                -1,
-                itemArray
-              );
-              currPlayerPosition = [
-                currPlayerPosition[0],
-                currPlayerPosition[1] - 1,
-              ];
+          if (game.level.currPlayerPosition[1] > 0) {
+            let isTnt = false;
+            if ((isTnt = game.level.checkCollision(0, -1)) != false) {
+              game.level.movePlayerInArray(0, -1);
               if (isTnt == "t2") {
-                bombCount++;
+                game.setBombCount(1);
               }
             }
           }
           break;
         case "s":
-          if (currPlayerPosition[1] < 12) {
-            var isTnt = false;
-            if (
-              (isTnt = checkCollision(
-                currPlayerPosition,
-                0,
-                1,
-                backgroundArray,
-                itemArray
-              )) != false
-            ) {
-              itemArray = movePlayer(
-                currPlayerPosition,
-                level.endPosition,
-                0,
-                1,
-                itemArray
-              );
-              currPlayerPosition = [
-                currPlayerPosition[0],
-                currPlayerPosition[1] + 1,
-              ];
+          if (game.level.currPlayerPosition[1] < 12) {
+            let isTnt = false;
+            if ((isTnt = game.level.checkCollision(0, 1)) != false) {
+              game.level.movePlayerInArray(0, 1);
               if (isTnt == "t2") {
-                bombCount++;
+                game.setBombCount(1);
               }
             }
           }
           break;
         case "a":
-          if (currPlayerPosition[0] > 0) {
-            var isTnt = false;
-            if (
-              (isTnt = checkCollision(
-                currPlayerPosition,
-                -1,
-                0,
-                backgroundArray,
-                itemArray
-              )) != false
-            ) {
-              itemArray = movePlayer(
-                currPlayerPosition,
-                level.endPosition,
-                -1,
-                0,
-                itemArray
-              );
-              currPlayerPosition = [
-                currPlayerPosition[0] - 1,
-                currPlayerPosition[1],
-              ];
+          if (game.level.currPlayerPosition[0] > 0) {
+            let isTnt = false;
+            if ((isTnt = game.level.checkCollision(-1, 0)) != false) {
+              game.level.movePlayerInArray(-1, 0);
               if (isTnt == "t2") {
-                bombCount++;
+                game.setBombCount(1);
               }
             }
           }
           break;
 
         case "d":
-          if (currPlayerPosition[0] < 12) {
-            var isTnt = false;
-            if (
-              (isTnt = checkCollision(
-                currPlayerPosition,
-                1,
-                0,
-                backgroundArray,
-                itemArray
-              )) != false
-            ) {
-              itemArray = movePlayer(
-                currPlayerPosition,
-                level.endPosition,
-                1,
-                0,
-                itemArray
-              );
-              currPlayerPosition = [
-                currPlayerPosition[0] + 1,
-                currPlayerPosition[1],
-              ];
+          if (game.level.currPlayerPosition[0] < 12) {
+            let isTnt = false;
+            if ((isTnt = game.level.checkCollision(1, 0)) != false) {
+              game.level.movePlayerInArray(1, 0);
               if (isTnt == "t2") {
-                bombCount++;
+                game.setBombCount(1);
               }
             }
           }
           break;
         case "e":
           if (
-            currentLevel < maxLevel &&
-            currPlayerPosition[0] == level.endPosition[0] &&
-            currPlayerPosition[1] == level.endPosition[1]
+            game.level.checkCanExitLevel(game)
           ) {
-            level = getLevel(currentLevel + 1);
-            backgroundArray = level.backgroundArray;
-            itemArray = level.itemArray;
-            currPlayerPosition = level.startPosition;
-            currentLevel = currentLevel + 1;
+            game.setLevel(getLevelFromDb(game.currentLevel + 1));
+            game.increaseCurrentLevel(1);
           }
           break;
         case "p":
-          console.log("bombs:",bombCount);
-          if (bombCount > 0) {
-            itemArray = placeTnt(currPlayerPosition, itemArray);
-            bombCount--;
+          console.log("bombs:", game.bombCount);
+          if (game.bombCount > 0) {
+            game.level.placeTnt();
+            game.setBombCount(-1);
           }
           break;
         default:
           break;
       }
-      drawBackground(backgroundImage, backgroundArray, ctx);
-      drawItems(itemImage, playerImage, itemArray, ctx);
+      game.field.drawBackground(game.level.backgroundArray);
+      game.field.drawItems(game.level.itemArray);
     });
   };
 
-  playLevel(currentLevel);
+  playLevel(game.currentLevel);
 }

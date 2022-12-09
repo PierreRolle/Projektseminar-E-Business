@@ -1,5 +1,4 @@
 import AbstractView from "./AbstractView.js";
-import test from "../game/GameState.js";
 
 export default class extends AbstractView {
   constructor(probs) {

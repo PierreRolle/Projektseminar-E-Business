@@ -1,8 +1,5 @@
 export default class {
-  constructor(backgroundLayer, collisionLayer, elementLayer) {
-    this.backgroundLayer = backgroundLayer;
-    this.collisionLayer = collisionLayer;
-    this.elementLayer = elementLayer;
+  constructor() {
   }
 
   setTitle(title) {

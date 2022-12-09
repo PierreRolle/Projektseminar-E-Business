@@ -1,6 +1,6 @@
-import MainMenu from "./views/MainMenu.js";
-import Manual from "./views/Manual.js";
-import Game from "./views/Game.js";
+import MainMenuView from "./views/MainMenuView.js";
+import ManualView from "./views/ManualView.js";
+import GameView from "./views/GameView.js";
 import startGame from "./game/GameState.js";
 
 const pathToRegex = (path) =>
@@ -26,10 +26,10 @@ const navigateTo = (url) => {
 
 const router = async () => {
   const routes = [
-    { path: "/", view: MainMenu },
-    { path: "/mainMenu", view: MainMenu },
-    { path: "/manual", view: Manual },
-    { path: "/game", view: Game}
+    { path: "/", view: MainMenuView },
+    { path: "/mainMenu", view: MainMenuView },
+    { path: "/manual", view: ManualView },
+    { path: "/game", view: GameView}
   ];
 
   // Test each route for potential match
