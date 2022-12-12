@@ -154,6 +154,7 @@ export default class Level {
           this.currPlayerPosition[0] + j <= 12
         ) {
           if (
+            Math.pow(i, 2) != Math.pow(j, 2) &&
             this.itemArray[this.currPlayerPosition[1] + i][
               this.currPlayerPosition[0] + j
             ] == "s"
