@@ -37,7 +37,7 @@ export default function startGame() {
    */
   const playLevel = (levelIndex) => {
     game.setLevel(getLevelFromDb(levelIndex));
-    
+
     entityImage.onload = () => {
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
@@ -100,8 +100,14 @@ export default function startGame() {
           break;
         case "p":
           if (game.bombCount > 0) {
-            game.level.placeTnt();
+            const tntsPlaced = game.level.placeTnt();
             game.setBombCount(game.bombCount - 1);
+            setTimeout(() => {
+              clearTnt(tntsPlaced, game);
+              game.field.drawBackground(game.level.backgroundArray);
+              game.field.drawItems(game.level.itemArray);
+              game.field.drawEntities(game.level.entityArray);
+            }, 1000);
           }
           break;
         case "r":
@@ -114,6 +120,13 @@ export default function startGame() {
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
       game.field.drawEntities(game.level.entityArray);
+    });
+  };
+
+  const clearTnt = (tntsPlaced, game) => {
+    console.log(tntsPlaced);
+    tntsPlaced.forEach((tnt) => {
+      game.level.itemArray[tnt[0]][tnt[1]] = "";
     });
   };
 

@@ -21,7 +21,7 @@ export default class GameField {
 */
 
   /**
-   * 
+   *
    * @param {*} array
    * zeichnet den Hintergrund aus dem BackgroundArray auf die Canvas
    * holt sich dafür mit getBackgroundTile, den Abschnitt aus TileSets
@@ -48,7 +48,7 @@ export default class GameField {
   }
 
   /**
-   * 
+   *
    * @param {*} array
    * zeichnet die Items aus dem ItemArray auf die Canvas
    * analog zu drawBackground
@@ -75,7 +75,7 @@ export default class GameField {
   }
 
   /**
-   * 
+   *
    * @param {*} array
    * zeichnet die Entities aus dem EntityArray auf die Canvas
    * analog zu den anderen Draw Methoden
@@ -102,7 +102,7 @@ export default class GameField {
   }
 
   /**
-   * 
+   *
    * @param {*} backgroundId String Wert (key)
    * @returns Position auf der x und y Achse, in der sich das entsprechende Tile auf dem Tileset befindet
    * Zahlen Werte entsprechen den Werten, die sich im Discord unter "Implementierung" befinden
@@ -149,7 +149,7 @@ export default class GameField {
   }
 
   /**
-   * 
+   *
    * @param {*} ItemId String Wert (key)
    * @returns Position auf der x und y Achse, in der sich das entsprechende Tile auf dem Tileset befindet
    * Zahlen Werte entsprechen den Werten, die sich im Discord unter "Implementierung" befinden
@@ -160,6 +160,8 @@ export default class GameField {
     switch (itemId) {
       case "t2":
         return [80, 160];
+      case "x":
+        return [160, 160];
       case "s":
         return [240, 80];
       case "l1":
@@ -171,7 +173,7 @@ export default class GameField {
   }
 
   /**
-   * 
+   *
    * @param {*} entityId String Wert (key)
    * @returns Position auf der x und y Achse, in der sich das entsprechende Tile auf dem Tileset befindet
    * Zahlen Werte entsprechen den Werten, die sich im Discord unter "Implementierung" befinden

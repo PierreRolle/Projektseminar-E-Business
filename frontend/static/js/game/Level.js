@@ -93,7 +93,7 @@ export default class Level {
    *
    * @param {*} moveX
    * @param {*} moveY
-   * @returns Das Item, was auf das sich der Spieler zu bewegt, falls ein Item vor ihm ist oder "leer", wenn der Spieler sich bewegen darf | 
+   * @returns Das Item, was auf das sich der Spieler zu bewegt, falls ein Item vor ihm ist oder "leer", wenn der Spieler sich bewegen darf |
    *          oder falls, wenn er es nicht darf
    * überprüft, ob vor dem Spieler ein Item liegt
    * überprüft, ob vor dem Spieler Stein ("": Default wert des Leveldesigns, der mit Stein aufgefüllt wird), Sand ("13") oder Stein ("14")
@@ -126,7 +126,7 @@ export default class Level {
   }
 
   /**
-   * 
+   *
    * @param {*} game aktuelles Spiel
    * @returns Überprüft, ob der Spieler im letzen Level ist und ob er sich auf der Endposition des Levels befindet
    */
@@ -140,10 +140,11 @@ export default class Level {
   }
 
   /**
-   * entfernt Stein ("s") aus Item Array für alle Felder, die sich um den Spieler befinden (3x3)   
+   * entfernt Stein ("s") aus Item Array für alle Felder, die sich um den Spieler befinden (3x3)
    */
 
   placeTnt() {
+    let tntsPlaced = [];
     let array;
     for (let i = -1; i < 2; i++) {
       for (let j = -1; j < 2; j++) {
@@ -162,11 +163,15 @@ export default class Level {
             array = this.itemArray;
             array[this.currPlayerPosition[1] + i][
               this.currPlayerPosition[0] + j
-            ] = "";
-            this.setItemArray(array);
+            ] = "x";
+            tntsPlaced.push([
+              this.currPlayerPosition[1] + i,
+              this.currPlayerPosition[0] + j,
+            ]);
           }
         }
       }
     }
+    return tntsPlaced;
   }
 }
