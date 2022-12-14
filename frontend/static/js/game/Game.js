@@ -5,21 +5,38 @@ export default class Game {
     this.probs = probs;
     this.currentLevel = this.probs.currentLevel;
     this.maxLevel = this.probs.maxLevel;
-    this.lifeCount = this.probs.lifeCount;
     this.bombCount = this.probs.bombCount;
     this.level = this.probs.level;
     this.field = this.probs.field;
   }
 
+  /**
+   *
+   * @param {*} level
+   * setzt Level auf neue Instanz der Klasse Level
+   */
+
   setLevel(level) {
-    this.level = new Level (level);
+    this.level = new Level(level);
   }
 
-  increaseCurrentLevel(levelDiff) {
-    this.currentLevel = this.currentLevel + levelDiff;
+  /**
+   *
+   * @param {*} levelDiff
+   * inkrementiert Level
+   */
+
+  incrementCurrentLevel() {
+    this.currentLevel = this.currentLevel + 1;
   }
-a
-  setBombCount(bombDiff) {
-    this.bombCount = this.bombCount + bombDiff;
+
+  /**
+   * 
+   * @param {*} bombCount
+   * setzt Anzahl der Bombem auf übergebenen Wert 
+   */
+
+  setBombCount(bombCount) {
+    this.bombCount = bombCount;
   }
 }

@@ -8,10 +8,6 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PierreRolle/Projektseminar-E-Business.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -11,7 +11,6 @@ export default class extends AbstractView {
     return `
       <div class="gameContainer">
         <div class="gameHeader">
-          <h3>Hier stehen Herzen</h3>
           <a href="/mainMenu" class="closeButton" data-link>X</a> 
         </div>
         <div>

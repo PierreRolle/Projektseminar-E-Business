@@ -18,6 +18,7 @@
   border: 0ch;
   text-decoration: none;
   color: black;
+  padding-right: 30px
 }
 
 .closeButton:hover {

@@ -11,19 +11,16 @@ export default function startGame() {
   backgroundImage.src = "/static/images/TileSetBackground.png";
   let itemImage = new Image();
   itemImage.src = "/static/images/TileSetItems.png";
-  let playerImage = new Image();
-  playerImage.src = "/static/images/tiles/Spieler.png";
+  let entityImage = new Image();
+  entityImage.src = "/static/images/TileSetEntities.png";
 
-  const field = new Field(ctx, backgroundImage, itemImage, playerImage);
+  const field = new Field(ctx, backgroundImage, itemImage, entityImage);
 
-  let levelFromDb = getLevelFromDb(0);
-  let firstLevel = new Level(levelFromDb);
-  
+  let firstLevel = new Level(getLevelFromDb(0));
 
   let gameProbs = {
     currentLevel: 0,
     maxLevel: 2,
-    lifeCount: 3,
     bombCount: 0,
     level: firstLevel,
     field: field,
@@ -31,12 +28,20 @@ export default function startGame() {
 
   const game = new Game(gameProbs);
 
+  /**
+   * Zeile 7 - 29 initialisieren das Spiel
+   */
+
+  /**
+   * Durchlaufen des aktuellen Levels mit der Id levelIndex
+   */
   const playLevel = (levelIndex) => {
     game.setLevel(getLevelFromDb(levelIndex));
 
-    playerImage.onload = () => {
+    entityImage.onload = () => {
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
+      game.field.drawEntities(game.level.entityArray);
     };
 
     window.addEventListener("keydown", (e) => {
@@ -47,7 +52,7 @@ export default function startGame() {
             if ((isTnt = game.level.checkCollision(0, -1)) != false) {
               game.level.movePlayerInArray(0, -1);
               if (isTnt == "t2") {
-                game.setBombCount(1);
+                game.setBombCount(game.bombCount + 1);
               }
             }
           }
@@ -58,7 +63,7 @@ export default function startGame() {
             if ((isTnt = game.level.checkCollision(0, 1)) != false) {
               game.level.movePlayerInArray(0, 1);
               if (isTnt == "t2") {
-                game.setBombCount(1);
+                game.setBombCount(game.bombCount + 1);
               }
             }
           }
@@ -69,7 +74,7 @@ export default function startGame() {
             if ((isTnt = game.level.checkCollision(-1, 0)) != false) {
               game.level.movePlayerInArray(-1, 0);
               if (isTnt == "t2") {
-                game.setBombCount(1);
+                game.setBombCount(game.bombCount + 1);
               }
             }
           }
@@ -81,31 +86,46 @@ export default function startGame() {
             if ((isTnt = game.level.checkCollision(1, 0)) != false) {
               game.level.movePlayerInArray(1, 0);
               if (isTnt == "t2") {
-                game.setBombCount(1);
+                game.setBombCount(game.bombCount + 1);
               }
             }
           }
           break;
         case "e":
-          if (
-            game.level.checkCanExitLevel(game)
-          ) {
+          if (game.level.checkCanExitLevel(game)) {
             game.setLevel(getLevelFromDb(game.currentLevel + 1));
-            game.increaseCurrentLevel(1);
+            game.incrementCurrentLevel();
+            game.setBombCount(0);
           }
           break;
         case "p":
-          console.log("bombs:", game.bombCount);
           if (game.bombCount > 0) {
-            game.level.placeTnt();
-            game.setBombCount(-1);
+            const tntsPlaced = game.level.placeTnt();
+            game.setBombCount(game.bombCount - 1);
+            setTimeout(() => {
+              clearTnt(tntsPlaced, game);
+              game.field.drawBackground(game.level.backgroundArray);
+              game.field.drawItems(game.level.itemArray);
+              game.field.drawEntities(game.level.entityArray);
+            }, 1000);
           }
+          break;
+        case "r":
+          game.setLevel(getLevelFromDb(game.currentLevel));
+          game.setBombCount(0);
           break;
         default:
           break;
       }
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
+      game.field.drawEntities(game.level.entityArray);
+    });
+  };
+
+  const clearTnt = (tntsPlaced, game) => {
+    tntsPlaced.forEach((tnt) => {
+      game.level.itemArray[tnt[0]][tnt[1]] = "";
     });
   };
 

@@ -1,9 +1,9 @@
 export default class GameField {
-  constructor(ctx, backgroundImage, itemImage, playerImage) {
+  constructor(ctx, backgroundImage, itemImage, entityImage) {
     this.ctx = ctx;
     this.backgroundImage = backgroundImage;
     this.itemImage = itemImage;
-    this.playerImage = playerImage;
+    this.entityImage = entityImage;
   }
 
   /**
@@ -19,6 +19,14 @@ export default class GameField {
   h2  How large to plop the grab (height of incoming stamp)
 );
 */
+
+  /**
+   *
+   * @param {*} array
+   * zeichnet den Hintergrund aus dem BackgroundArray auf die Canvas
+   * holt sich dafür mit getBackgroundTile, den Abschnitt aus TileSets
+   * drawImage Methode mit den oben erklärten Parametern
+   */
 
   drawBackground(array) {
     for (let i = 0; i < array.length; i++) {
@@ -39,6 +47,12 @@ export default class GameField {
     }
   }
 
+  /**
+   *
+   * @param {*} array
+   * zeichnet die Items aus dem ItemArray auf die Canvas
+   * analog zu drawBackground
+   */
   drawItems(array) {
     for (let i = 0; i < array.length; i++) {
       for (let j = 0; j < array[i].length; j++) {
@@ -60,68 +74,128 @@ export default class GameField {
     }
   }
 
+  /**
+   *
+   * @param {*} array
+   * zeichnet die Entities aus dem EntityArray auf die Canvas
+   * analog zu den anderen Draw Methoden
+   */
+  drawEntities(array) {
+    for (let i = 0; i < array.length; i++) {
+      for (let j = 0; j < array[i].length; j++) {
+        if (array[j][i] != "") {
+          let entityTile = this.getEntityTile(array[j][i]);
+          this.ctx.drawImage(
+            this.entityImage,
+            entityTile[0],
+            entityTile[1],
+            80,
+            80,
+            i * 40,
+            j * 40,
+            40,
+            40
+          );
+        }
+      }
+    }
+  }
+
+  /**
+   *
+   * @param {*} backgroundId String Wert (key)
+   * @returns Position auf der x und y Achse, in der sich das entsprechende Tile auf dem Tileset befindet
+   * Zahlen Werte entsprechen den Werten, die sich im Discord unter "Implementierung" befinden
+   * bezieht sich auf "TileSetBackground.png"
+   */
+
   getBackgroundTile(backgroundId) {
     switch (backgroundId) {
       case "1":
         return [0, 0];
-        break;
       case "2":
         return [80, 0];
-        break;
       case "3":
         return [160, 0];
-        break;
       case "4":
         return [240, 0];
-        break;
       case "5":
         return [0, 80];
-        break;
       case "6":
         return [80, 80];
-        break;
       case "7":
         return [160, 80];
-        break;
       case "8":
         return [240, 80];
-        break;
       case "9":
         return [0, 160];
-        break;
       case "10":
         return [80, 160];
-        break;
       case "11":
         return [160, 160];
-        break;
       case "12":
         return [240, 160];
-        break;
       case "13":
+        return [0, 240];
+      case "14":
         return [80, 240];
-        break;
+      case "15":
+        return [0, 480];
+      case "16":
+        return [480, 80];
+      case "17":
+        return [160, 480];
+      case "18":
+        return [240, 480];
+      case "19":
+        return [0, 560];
       default:
-        return [80, 240];
+        return [0, 0];
+    }
+  }
+
+  /**
+   *
+   * @param {*} ItemId String Wert (key)
+   * @returns Position auf der x und y Achse, in der sich das entsprechende Tile auf dem Tileset befindet
+   * Zahlen Werte entsprechen den Werten, die sich im Discord unter "Implementierung" befinden
+   * bezieht sich auf "TileSetItems.png"
+   */
+
+  getItemTile(itemId) {
+    switch (itemId) {
+      case "t2":
+        return [80, 160];
+      case "x":
+        return [240, 160];
+      case "s":
+        return [240, 80];
+      case "l1":
+        return [0, 0];
+      case "l2":
+        return [80, 0];
+      default:
         break;
     }
     return;
   }
 
-  getItemTile(itemId) {
-    switch (itemId) {
+  /**
+   *
+   * @param {*} entityId String Wert (key)
+   * @returns Position auf der x und y Achse, in der sich das entsprechende Tile auf dem Tileset befindet
+   * Zahlen Werte entsprechen den Werten, die sich im Discord unter "Implementierung" befinden
+   * bezieht sich auf "TileSetEntities.png"
+   */
+
+  getEntityTile(entityId) {
+    switch (entityId) {
       case "p":
-        return [160, 80];
-        break;
-      case "t2":
-        return [80, 160];
-        break;
-      case "s":
-        return [240, 80];
-        break;
-      case "l1":
         return [0, 0];
-        break;
+      case "m1":
+        return [80, 0];
+      case "m2":
+        return [160, 0];
       default:
         break;
     }
