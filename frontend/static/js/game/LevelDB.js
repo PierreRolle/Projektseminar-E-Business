@@ -6,6 +6,7 @@
 
  const levelArray = [
 { //Level 1
+    timeToComplete: 10,
     startPosition: [3,3],
     endPosition: [9,9],
     backgroundArray: [
@@ -56,6 +57,7 @@
   },
   {
   //Level 2  
+    timeToComplete: 100,
     startPosition: [3,3],
     endPosition: [9,9],
     backgroundArray: [
