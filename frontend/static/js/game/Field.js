@@ -161,7 +161,7 @@ export default class GameField {
       case "t2":
         return [80, 160];
       case "x":
-        return [160, 160];
+        return [240, 160];
       case "s":
         return [240, 80];
       case "l1":

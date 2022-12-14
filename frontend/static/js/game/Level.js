@@ -116,7 +116,7 @@ export default class Level {
       this.backgroundArray[this.currPlayerPosition[1] + moveY][
         this.currPlayerPosition[0] + moveX
       ] == "14";
-    if (itemAhead != "s" && !isNotAccessableTerrain) {
+    if (itemAhead != "s" && itemAhead != "x" && !isNotAccessableTerrain) {
       if (itemAhead == "") {
         return "leer";
       }
@@ -144,6 +144,8 @@ export default class Level {
    */
 
   placeTnt() {
+    // save the position of the tnts that were placed so that they can be removed later
+    // [[x1, y1], [x2, y2], [x3, y3]...]
     let tntsPlaced = [];
     let array;
     for (let i = -1; i < 2; i++) {

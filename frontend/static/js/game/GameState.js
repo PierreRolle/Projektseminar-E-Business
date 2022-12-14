@@ -124,7 +124,6 @@ export default function startGame() {
   };
 
   const clearTnt = (tntsPlaced, game) => {
-    console.log(tntsPlaced);
     tntsPlaced.forEach((tnt) => {
       game.level.itemArray[tnt[0]][tnt[1]] = "";
     });
