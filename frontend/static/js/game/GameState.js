@@ -92,6 +92,9 @@ export default function startGame() {
           }
           break;
         case "e":
+          if (game.level.checkCanTeleport() > 0){
+            game.level.teleport();
+          }
           if (game.level.checkCanExitLevel(game)) {
             game.setLevel(getLevelFromDb(game.currentLevel + 1));
             game.incrementCurrentLevel();
