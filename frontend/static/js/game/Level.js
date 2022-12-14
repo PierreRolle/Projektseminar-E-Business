@@ -8,12 +8,15 @@
  */
 export default class Level {
   constructor(level) {
+    console.log("level constructor")
     this.startPosition = level.startPosition;
     this.endPosition = level.endPosition;
     this.currPlayerPosition = level.startPosition;
     this.backgroundArray = level.backgroundArray;
     this.itemArray = level.itemArray;
     this.entityArray = level.entityArray;
+    this.timeToComplete = level.timeToComplete;
+    this.timer = this.startTimer();
   }
 
   /**
@@ -38,6 +41,22 @@ export default class Level {
 
   setEntityArray(entityArray) {
     this.entityArray = entityArray;
+  }
+
+  startTimer() {
+    document.getElementById("time-to-complete").innerHTML = this.timeToComplete;
+    const timer = setInterval(() => {
+      this.timeToComplete--;
+      document.getElementById("time-to-complete").innerHTML = this.timeToComplete;
+      if (this.timeToComplete < 0) {
+        clearInterval(this.timer);
+      }
+    }, 1000);
+    return timer
+  }
+
+  clearTimer() {
+    clearInterval(this.timer);
   }
 
   /**
