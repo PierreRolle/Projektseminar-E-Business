@@ -53,6 +53,7 @@ export default function startGame() {
               game.level.movePlayerInArray(0, -1);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
+                document.getElementById("tnt-count").innerHTML = game.bombCount;
               }
             }
           }
@@ -64,6 +65,7 @@ export default function startGame() {
               game.level.movePlayerInArray(0, 1);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
+                document.getElementById("tnt-count").innerHTML = game.bombCount;
               }
             }
           }
@@ -75,6 +77,7 @@ export default function startGame() {
               game.level.movePlayerInArray(-1, 0);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
+                document.getElementById("tnt-count").innerHTML = game.bombCount;
               }
             }
           }
@@ -87,6 +90,7 @@ export default function startGame() {
               game.level.movePlayerInArray(1, 0);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
+                document.getElementById("tnt-count").innerHTML = game.bombCount;
               }
             }
           }
@@ -96,12 +100,14 @@ export default function startGame() {
             game.setLevel(getLevelFromDb(game.currentLevel + 1));
             game.incrementCurrentLevel();
             game.setBombCount(0);
+            document.getElementById("tnt-count").innerHTML = game.bombCount;
           }
           break;
         case "p":
           if (game.bombCount > 0) {
             const tntsPlaced = game.level.placeTnt();
             game.setBombCount(game.bombCount - 1);
+            document.getElementById("tnt-count").innerHTML = game.bombCount;
             setTimeout(() => {
               clearTnt(tntsPlaced, game);
               game.field.drawBackground(game.level.backgroundArray);
@@ -113,6 +119,7 @@ export default function startGame() {
         case "r":
           game.setLevel(getLevelFromDb(game.currentLevel));
           game.setBombCount(0);
+          document.getElementById("tnt-count").innerHTML = game.bombCount;
           break;
         default:
           break;
