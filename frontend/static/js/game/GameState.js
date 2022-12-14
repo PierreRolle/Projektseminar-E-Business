@@ -36,8 +36,6 @@ export default function startGame() {
    * Durchlaufen des aktuellen Levels mit der Id levelIndex
    */
   const playLevel = (levelIndex) => {
-    game.setLevel(getLevelFromDb(levelIndex));
-
     entityImage.onload = () => {
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
@@ -97,6 +95,7 @@ export default function startGame() {
           break;
         case "e":
           if (game.level.checkCanExitLevel(game)) {
+            game.level.clearTimer()
             game.setLevel(getLevelFromDb(game.currentLevel + 1));
             game.incrementCurrentLevel();
             game.setBombCount(0);
@@ -117,6 +116,7 @@ export default function startGame() {
           }
           break;
         case "r":
+          game.level.clearTimer()
           game.setLevel(getLevelFromDb(game.currentLevel));
           game.setBombCount(0);
           document.getElementById("tnt-count").innerHTML = game.bombCount;
