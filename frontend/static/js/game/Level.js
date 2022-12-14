@@ -14,6 +14,8 @@ export default class Level {
     this.backgroundArray = level.backgroundArray;
     this.itemArray = level.itemArray;
     this.entityArray = level.entityArray;
+    this.teleportPosition1 = level.teleportPosition1;
+    this.teleportPosition2 = level.teleportPosition2;
   }
 
   /**
@@ -175,5 +177,45 @@ export default class Level {
       }
     }
     return tntsPlaced;
+  }
+/**
+ * Ueberprueft, ob der Spieler sich auf einem Teleporter-Feld befindet, wenn ja, wird ein Value >0 zurueckgegeben, sonst 0
+ */
+  checkCanTeleport() {
+    if (this.currPlayerPosition[0] == this.teleportPosition1[0] &&
+    this.currPlayerPosition[1] == this.teleportPosition1[1])
+      {return 1;}
+    if (this.currPlayerPosition[0] == this.teleportPosition2[0] &&
+    this.currPlayerPosition[1] == this.teleportPosition2[1])
+      {return 1;}
+    return 0;
+}
+/**
+ * Aendert die Position des Spielers je nach Teleportfeld. auf welchem er sich befindet
+ * Referenziert das aktuell gezeichnete Entity-Array um es spaeter mit der neuen Spieler-Position zu ueberschreiben
+ * Befindet sich der Spieler auf dem ersten Teleporter, wird die Spielerposition zur Position des Teleporters 2 geaendert und das array angepasst
+ * Befindet sich der Spieler auf dem zweiten Teleporter, wird die Spielerposition zur Position des Teleporters 1 geaendert und das array angepasst
+ * Es wird die Methode setEntityArray mit dem neuen Array aufgerufen
+ */
+
+  teleport() {
+    let array = this.entityArray;
+    let p0 = this.currPlayerPosition[0].valueOf();
+    let p1 = this.currPlayerPosition[1].valueOf();
+    array[this.currPlayerPosition[1]][this.currPlayerPosition[0]] = "";
+
+    if(p1==this.teleportPosition1[1] && p0==this.teleportPosition1[0]){
+      this.currPlayerPosition[0]=this.teleportPosition2[0];
+      this.currPlayerPosition[1]=this.teleportPosition2[1];
+      array[this.teleportPosition2[1]][this.teleportPosition2[0]] = "p";
+    }
+
+    if(p1==this.teleportPosition2[1] && p0==this.teleportPosition2[0]){
+      this.currPlayerPosition[0]=this.teleportPosition1[0];
+      this.currPlayerPosition[1]=this.teleportPosition1[1];
+      array[this.teleportPosition1[1]][this.teleportPosition1[0]] = "p";
+    }
+
+    this.setEntityArray(array);
   }
 }
