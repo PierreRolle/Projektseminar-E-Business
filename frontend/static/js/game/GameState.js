@@ -51,6 +51,7 @@ export default function startGame() {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(0, -1)) != false) {
               game.level.movePlayerInArray(0, -1);
+              game.level.moveEnemies();
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
               }
@@ -62,6 +63,7 @@ export default function startGame() {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(0, 1)) != false) {
               game.level.movePlayerInArray(0, 1);
+              game.level.moveEnemies();
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
               }
@@ -73,6 +75,7 @@ export default function startGame() {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(-1, 0)) != false) {
               game.level.movePlayerInArray(-1, 0);
+              game.level.moveEnemies();
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
               }
@@ -85,6 +88,7 @@ export default function startGame() {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(1, 0)) != false) {
               game.level.movePlayerInArray(1, 0);
+              game.level.moveEnemies();
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
               }
@@ -110,6 +114,10 @@ export default function startGame() {
           break;
         default:
           break;
+      }
+      if(game.level.dead() == true){
+      game.setLevel(getLevelFromDb(game.currentLevel));
+      game.setBombCount(0);
       }
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);

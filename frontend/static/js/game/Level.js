@@ -10,6 +10,7 @@ export default class Level {
   constructor(level) {
     this.startPosition = level.startPosition;
     this.endPosition = level.endPosition;
+    this.enemies = level.enemies;
     this.currPlayerPosition = level.startPosition;
     this.backgroundArray = level.backgroundArray;
     this.itemArray = level.itemArray;
@@ -166,6 +167,42 @@ export default class Level {
           }
         }
       }
+    }
+  }
+
+  moveEnemies(){
+    // let array = this.entityArray; [Entitätenarray]
+    this.enemies.forEach(enemy => { //für jedes Element steckt nun einmal im Durchlauf in der Variable Enemy
+      // let x = enemy.position[0];
+      console.log(enemy);
+      // let y = enemy.position[1];
+      if(enemy.type == 'm1'){
+        this.entityArray[enemy.position[1]][enemy.position[0]] = "";
+        if((enemy.position[1] + enemy.direction >= this.entityArray.length) || (enemy.position[1] + enemy.direction < 0) 
+        || (this.itemArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "s") || (this.entityArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "m1")
+        || (this.entityArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "m2") || (this.backgroundArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "14")){
+          enemy.direction *= -1;
+        }
+        enemy.position[1] += enemy.direction;
+        console.log(enemy);
+        this.entityArray[enemy.position[1]][enemy.position[0]] = "m1";
+      } else{
+        this.entityArray[enemy.position[1]][enemy.position[0]] = "";
+        if((enemy.position[0] + enemy.direction >= this.entityArray.length) || (enemy.position[0] + enemy.direction < 0)
+        || (this.itemArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "s") || (this.entityArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "m1")
+        || (this.entityArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "m2") || (this.backgroundArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "14")){
+          enemy.direction *= -1;
+        }
+        enemy.position[0] += enemy.direction;
+        this.entityArray[enemy.position[1]][enemy.position[0]] = "m2";
+      }
+    })
+  }
+  dead(){
+  if((this.entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] == "m1") || (this.entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] == "m2")){
+    return true;
+   }else{
+    return false
     }
   }
 }
