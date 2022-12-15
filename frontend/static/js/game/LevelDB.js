@@ -8,18 +8,10 @@
   {
     startPosition: [0, 0],
     endPosition: [5,12],
-    enemies: [{ //wer als erstes implementiert wurde, lässt hat auch Vorfahrt
-      type: 'm1',
-      position: [0,12],
-      direction: -1
-    },
-    {type: 'm2',
-      position: [10, 12],
-      direction: 1
-    },
-    {type: 'm1',
-      position: [12, 10],
-      direction: 1}
+    enemies: [ //wer als erstes implementiert wurde, lässt hat auch Vorfahrt
+    {type: 'm1', position: [0,12], direction: -1},
+    {type: 'm2', position: [10, 12], direction: 1},
+    {type: 'm1', position: [12, 10], direction: 1}
   ],
     backgroundArray: [
       ["5", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "6"],
@@ -49,7 +41,7 @@
       ["s", "", "", "", "", "", "", "", "", "", "", "", ""],
       ["", "", "", "t2", "", "", "", "", "", "", "", "", ""],
       ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "s", "l1", "", "", "", "", "", "", "t2"],
+      ["", "s", "", "", "s", "l1", "", "", "", "", "", "", "t2"],
     ],
     entityArray: [
       ["p", "", "", "", "", "", "", "", "", "", "", "", ""],

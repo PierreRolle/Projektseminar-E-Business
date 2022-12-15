@@ -139,7 +139,13 @@ export default class Level {
       this.currPlayerPosition[1] == this.endPosition[1]
     );
   }
-
+  checkCanEndGame(game) {
+    return (
+      game.currentLevel == game.maxLevel &&
+      this.currPlayerPosition[0] == this.endPosition[0] &&
+      this.currPlayerPosition[1] == this.endPosition[1]
+    );
+  }
   /**
    * entfernt Stein ("s") aus Item Array für alle Felder, die sich um den Spieler befinden (3x3)   
    */
@@ -174,7 +180,6 @@ export default class Level {
     // let array = this.entityArray; [Entitätenarray]
     this.enemies.forEach(enemy => { //für jedes Element steckt nun einmal im Durchlauf in der Variable Enemy
       // let x = enemy.position[0];
-      console.log(enemy);
       // let y = enemy.position[1];
       if(enemy.type == 'm1'){
         this.entityArray[enemy.position[1]][enemy.position[0]] = "";
@@ -184,7 +189,6 @@ export default class Level {
           enemy.direction *= -1;
         }
         enemy.position[1] += enemy.direction;
-        console.log(enemy);
         this.entityArray[enemy.position[1]][enemy.position[0]] = "m1";
       } else{
         this.entityArray[enemy.position[1]][enemy.position[0]] = "";
@@ -198,11 +202,16 @@ export default class Level {
       }
     })
   }
-  dead(){
+
+  playerGotKilled(){
   if((this.entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] == "m1") || (this.entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] == "m2")){
     return true;
    }else{
     return false
     }
+  }
+
+  checkCollisionEnemies(position, moveX, moveY){
+
   }
 }

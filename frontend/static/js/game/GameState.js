@@ -44,6 +44,17 @@ export default function startGame() {
       game.field.drawEntities(game.level.entityArray);
     };
 
+    const intervalId = window.setInterval(function(){
+      game.level.moveEnemies();
+      if(game.level.playerGotKilled()){
+        game.setLevel(getLevelFromDb(game.currentLevel));
+        game.setBombCount(0);
+        }
+      game.field.drawBackground(game.level.backgroundArray);
+      game.field.drawItems(game.level.itemArray);
+      game.field.drawEntities(game.level.entityArray);
+    }, 333);
+
     window.addEventListener("keydown", (e) => {
       switch (e.key) {
         case "w":
@@ -51,7 +62,6 @@ export default function startGame() {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(0, -1)) != false) {
               game.level.movePlayerInArray(0, -1);
-              game.level.moveEnemies();
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
               }
@@ -63,7 +73,6 @@ export default function startGame() {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(0, 1)) != false) {
               game.level.movePlayerInArray(0, 1);
-              game.level.moveEnemies();
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
               }
@@ -75,7 +84,6 @@ export default function startGame() {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(-1, 0)) != false) {
               game.level.movePlayerInArray(-1, 0);
-              game.level.moveEnemies();
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
               }
@@ -88,7 +96,6 @@ export default function startGame() {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(1, 0)) != false) {
               game.level.movePlayerInArray(1, 0);
-              game.level.moveEnemies();
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
               }
@@ -100,6 +107,9 @@ export default function startGame() {
             game.setLevel(getLevelFromDb(game.currentLevel + 1));
             game.incrementCurrentLevel();
             game.setBombCount(0);
+          }
+          if(game.level.checkCanEndGame()){
+            window.location.href = "/end";
           }
           break;
         case "p":
@@ -115,7 +125,7 @@ export default function startGame() {
         default:
           break;
       }
-      if(game.level.dead() == true){
+      if(game.level.playerGotKilled()){
       game.setLevel(getLevelFromDb(game.currentLevel));
       game.setBombCount(0);
       }

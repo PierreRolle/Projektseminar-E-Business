@@ -9,6 +9,7 @@ export default class extends AbstractView {
   async getHtml() {
     return `
       <div>
+        <img src="/static/images/Schatzinsel_Überschrift.png" width = "500px">
         <nav>
           <a href="/game" class="button" data-link>
             Spiel starten
