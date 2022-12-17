@@ -182,12 +182,14 @@ export default class Level {
  * Ueberprueft, ob der Spieler sich auf einem Teleporter-Feld befindet, wenn ja, wird ein Value >0 zurueckgegeben, sonst 0
  */
   checkCanTeleport() {
-    if (this.currPlayerPosition[0] == this.teleportPosition1[0] &&
-    this.currPlayerPosition[1] == this.teleportPosition1[1])
-      {return 1;}
-    if (this.currPlayerPosition[0] == this.teleportPosition2[0] &&
-    this.currPlayerPosition[1] == this.teleportPosition2[1])
-      {return 1;}
+    if(this.teleportPosition1.length > 0 && this.teleportPosition2.length > 0){
+      if (this.currPlayerPosition[0] == this.teleportPosition1[0] &&
+        this.currPlayerPosition[1] == this.teleportPosition1[1])
+        {return 1;}
+      if (this.currPlayerPosition[0] == this.teleportPosition2[0] &&
+      this.currPlayerPosition[1] == this.teleportPosition2[1])
+        {return 1;}  
+    }
     return 0;
 }
 /**

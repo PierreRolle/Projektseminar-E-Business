@@ -142,7 +142,7 @@ export default class GameField {
       case "15":
         return [0, 480];
       case "16":
-        return [480, 80];
+        return [80, 480];
       case "17":
         return [160, 480];
       case "18":
@@ -174,7 +174,7 @@ export default class GameField {
         return [0, 0];
       case "l2":
         return [80, 0];
-      case "tele":
+      case "tp":
         return [160, 80];
       default:
         break;
