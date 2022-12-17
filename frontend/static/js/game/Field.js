@@ -174,8 +174,16 @@ export default class GameField {
         return [0, 0];
       case "l2":
         return [80, 0];
+      case "l3":
+        return [160, 0];
+      case "pl":
+        return [0, 80];
+      case "pr":
+        return [80, 80];
       case "tp":
         return [160, 80];
+      case "tc":
+        return [160,160];
       default:
         break;
     }
