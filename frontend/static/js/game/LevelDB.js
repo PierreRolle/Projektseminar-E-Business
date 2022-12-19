@@ -6,6 +6,7 @@
 
  const levelArray = [
   {   //Level 1
+      timeToComplete: 500,
       startPosition: [3,3],
       endPosition: [9,9],
       teleportPosition1: [8, 9],
@@ -59,6 +60,7 @@
     },
     {
       //Level 2  
+      timeToComplete: 500,
       startPosition: [3,3],
       endPosition: [9,9],
       teleportPosition1: [9, 4],
@@ -111,6 +113,7 @@
       ],
     },
     { //Level 3
+      timeToComplete: 500,
       startPosition: [2,2],
       endPosition: [10,10],
       teleportPosition1: [],
@@ -163,6 +166,7 @@
       ],
     },
     { //Level 4
+      timeToComplete: 500,
       startPosition: [2,2],
       endPosition: [6,6],
       teleportPosition1: [],
@@ -215,6 +219,7 @@
       ],
     },
     { //Level 5
+      timeToComplete: 500,
       startPosition: [6,6],
       endPosition: [1,1],
       teleportPosition1: [],
@@ -267,6 +272,7 @@
       ],    
     },
     { //Level 6
+      timeToComplete: 500,
       startPosition: [1,1],
       endPosition: [11,11],
       teleportPosition1: [],
@@ -320,6 +326,7 @@
     },
     {
       //Level 7  
+      timeToComplete: 500,
       startPosition: [1,1],
       endPosition: [11,11],
       teleportPosition1: [],
@@ -372,6 +379,7 @@
       ],
     },
     { //Level 8
+      timeToComplete: 500,
       startPosition: [1,1],
       endPosition: [11,11],
       teleportPosition1: [],
@@ -425,6 +433,7 @@
       ],
     },
     { //Level 9
+      timeToComplete: 500,
       startPosition: [1,1],
       endPosition: [5,6],
       teleportPosition1: [],
@@ -478,6 +487,7 @@
       ],
     },
     { //Level 10
+      timeToComplete: 500,
       startPosition: [6,6],
       endPosition: [11,11],
       teleportPosition1: [],
@@ -531,6 +541,7 @@
       ],    
     },
     { //Level 11
+      timeToComplete: 500,
       startPosition: [3,3],
       endPosition: [9,9],
       teleportPosition1: [],
@@ -584,6 +595,7 @@
     },
     {
       //Level 12  
+      timeToComplete: 500,
       startPosition: [3,3],
       endPosition: [9,9],
       teleportPosition1: [],
@@ -636,6 +648,7 @@
       ],
     },
     { //Level 13
+      timeToComplete: 500,
       startPosition: [2,2],
       endPosition: [10,10],
       teleportPosition1: [],
@@ -688,6 +701,7 @@
       ],
     },
     { //Level 14
+      timeToComplete: 500,
       startPosition: [2,2],
       endPosition: [6,6],
       teleportPosition1: [],
@@ -740,6 +754,7 @@
       ],
     },
     { //Level 15
+      timeToComplete: 500,
       startPosition: [6,6],
       endPosition: [1,1],
       teleportPosition1: [],
@@ -792,6 +807,7 @@
       ],    
     },
     { //Level 16
+      timeToComplete: 500,
       startPosition: [6,6],
       endPosition: [1,1],
       teleportPosition1: [],
