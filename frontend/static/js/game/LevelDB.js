@@ -825,7 +825,7 @@
     },
     { //Level 16
       startPosition: [6,10],
-      endPosition: [1,1],
+      endPosition: [6,4],
       teleportPosition1: [],
       teleportPosition2: [],
       enemies: [{type: "m1", position:[4,9], direction:-1 },
