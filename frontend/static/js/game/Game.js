@@ -39,4 +39,8 @@ export default class Game {
   setBombCount(bombCount) {
     this.bombCount = bombCount;
   }
+
+  clearTntTimer() {
+    clearTimeout(this.tntTimer);
+  }
 }
