@@ -20,7 +20,7 @@ export default function startGame() {
 
   let gameProbs = {
     currentLevel: 0,
-    maxLevel: 2,
+    maxLevel: 15,
     bombCount: 0,
     level: firstLevel,
     field: field,
@@ -41,6 +41,16 @@ export default function startGame() {
       game.field.drawItems(game.level.itemArray);
       game.field.drawEntities(game.level.entityArray);
     };
+    const intervalId = window.setInterval(function(){
+      game.level.moveEnemies();
+      if(game.level.playerGotKilled()){
+        game.setLevel(getLevelFromDb(game.currentLevel));
+        game.setBombCount(0);
+        }
+      game.field.drawBackground(game.level.backgroundArray);
+      game.field.drawItems(game.level.itemArray);
+      game.field.drawEntities(game.level.entityArray);
+    }, 333);
 
     window.addEventListener("keydown", (e) => {
       switch (e.key) {
@@ -94,12 +104,18 @@ export default function startGame() {
           }
           break;
         case "e":
+          if (game.level.checkCanTeleport() > 0){
+            game.level.teleport();
+          }
           if (game.level.checkCanExitLevel(game)) {
             game.level.clearTimer()
             game.setLevel(getLevelFromDb(game.currentLevel + 1));
             game.incrementCurrentLevel();
             game.setBombCount(0);
             document.getElementById("tnt-count").innerHTML = game.bombCount;
+          }
+          if(game.level.checkCanEndGame(game)){
+            window.location.href = "/end";
           }
           break;
         case "p":

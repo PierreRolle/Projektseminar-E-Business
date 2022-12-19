@@ -8,7 +8,7 @@
  */
 export default class Level {
   constructor(level) {
-    console.log("level constructor")
+    this.enemies = level.enemies;
     this.startPosition = level.startPosition;
     this.endPosition = level.endPosition;
     this.currPlayerPosition = level.startPosition;
@@ -17,6 +17,8 @@ export default class Level {
     this.entityArray = level.entityArray;
     this.timeToComplete = level.timeToComplete;
     this.timer = this.startTimer();
+    this.teleportPosition1 = level.teleportPosition1;
+    this.teleportPosition2 = level.teleportPosition2;
   }
 
   /**
@@ -194,5 +196,89 @@ export default class Level {
       }
     }
     return tntsPlaced;
+  }
+/**
+ * Ueberprueft, ob der Spieler sich auf einem Teleporter-Feld befindet, wenn ja, wird ein Value >0 zurueckgegeben, sonst 0
+ */
+  checkCanTeleport() {
+    if(this.teleportPosition1.length > 0 && this.teleportPosition2.length > 0){
+      if (this.currPlayerPosition[0] == this.teleportPosition1[0] &&
+        this.currPlayerPosition[1] == this.teleportPosition1[1])
+        {return 1;}
+      if (this.currPlayerPosition[0] == this.teleportPosition2[0] &&
+      this.currPlayerPosition[1] == this.teleportPosition2[1])
+        {return 1;}  
+    }
+    return 0;
+}
+/**
+ * Aendert die Position des Spielers je nach Teleportfeld. auf welchem er sich befindet
+ * Referenziert das aktuell gezeichnete Entity-Array um es spaeter mit der neuen Spieler-Position zu ueberschreiben
+ * Befindet sich der Spieler auf dem ersten Teleporter, wird die Spielerposition zur Position des Teleporters 2 geaendert und das array angepasst
+ * Befindet sich der Spieler auf dem zweiten Teleporter, wird die Spielerposition zur Position des Teleporters 1 geaendert und das array angepasst
+ * Es wird die Methode setEntityArray mit dem neuen Array aufgerufen
+ */
+
+  teleport() {
+    let array = this.entityArray;
+    let p0 = this.currPlayerPosition[0].valueOf();
+    let p1 = this.currPlayerPosition[1].valueOf();
+    array[this.currPlayerPosition[1]][this.currPlayerPosition[0]] = "";
+
+    if(p1==this.teleportPosition1[1] && p0==this.teleportPosition1[0]){
+      this.currPlayerPosition[0]=this.teleportPosition2[0];
+      this.currPlayerPosition[1]=this.teleportPosition2[1];
+      array[this.teleportPosition2[1]][this.teleportPosition2[0]] = "p";
+    }
+
+    if(p1==this.teleportPosition2[1] && p0==this.teleportPosition2[0]){
+      this.currPlayerPosition[0]=this.teleportPosition1[0];
+      this.currPlayerPosition[1]=this.teleportPosition1[1];
+      array[this.teleportPosition1[1]][this.teleportPosition1[0]] = "p";
+    }
+
+    this.setEntityArray(array);
+  }
+
+  checkCanEndGame(game) {
+    return (
+      game.currentLevel == game.maxLevel &&
+      this.currPlayerPosition[0] == this.endPosition[0] &&
+      this.currPlayerPosition[1] == this.endPosition[1]
+    );
+  }
+  moveEnemies(){
+    // let array = this.entityArray; [Entitätenarray]
+    this.enemies.forEach(enemy => { //für jedes Element steckt nun einmal im Durchlauf in der Variable Enemy
+      // let x = enemy.position[0];
+      // let y = enemy.position[1];
+      if(enemy.type == 'm1'){
+        this.entityArray[enemy.position[1]][enemy.position[0]] = "";
+        if((enemy.position[1] + enemy.direction >= this.entityArray.length)||(enemy.position[1] + enemy.direction < 0)||
+         (this.itemArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "s")||(this.entityArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "m1")||
+         (this.entityArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "m2")||(this.backgroundArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "14")){
+          enemy.direction *= -1;
+        }
+        enemy.position[1] += enemy.direction;
+        this.entityArray[enemy.position[1]][enemy.position[0]] = "m1";
+      } else{
+        this.entityArray[enemy.position[1]][enemy.position[0]] = "";
+        if((enemy.position[0] + enemy.direction >= this.entityArray.length)||(enemy.position[0] + enemy.direction < 0)||
+         (this.itemArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "s")||(this.entityArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "m1")||
+         (this.entityArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "m2")||(this.backgroundArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "14")){
+          enemy.direction *= -1;
+        }
+        enemy.position[0] += enemy.direction;
+        this.entityArray[enemy.position[1]][enemy.position[0]] = "m2";
+      }
+    })
+  }
+
+  playerGotKilled(){
+  if((this.entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] == "m1") || (this.entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] == "m2")){
+    return true;
+   }else{
+    return false
+    }
   }
 }
