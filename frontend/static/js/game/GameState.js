@@ -44,8 +44,7 @@ export default function startGame() {
     const intervalId = window.setInterval(function(){
       game.level.moveEnemies();
       if(game.level.playerGotKilled()){
-        game.setLevel(getLevelFromDb(game.currentLevel));
-        game.setBombCount(0);
+        game.resetLevel();
         }
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
