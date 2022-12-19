@@ -123,16 +123,17 @@ export default function startGame() {
             const tntsPlaced = game.level.placeTnt();
             game.setBombCount(game.bombCount - 1);
             document.getElementById("tnt-count").innerHTML = game.bombCount;
-            setTimeout(() => {
+            game.tntTimer = setTimeout(() => {
               clearTnt(tntsPlaced, game);
               game.field.drawBackground(game.level.backgroundArray);
               game.field.drawItems(game.level.itemArray);
               game.field.drawEntities(game.level.entityArray);
-            }, 1000);
+            }, 800);
           }
           break;
         case "r":
           game.level.clearTimer()
+          game.clearTntTimer()
           game.setLevel(getLevelFromDb(game.currentLevel));
           game.setBombCount(0);
           document.getElementById("tnt-count").innerHTML = game.bombCount;
