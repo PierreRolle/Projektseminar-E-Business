@@ -149,6 +149,8 @@ export default class GameField {
         return [240, 480];
       case "19":
         return [0, 560];
+      case "20":
+        return [240,400];
       default:
         return [0, 0];
     }
