@@ -20,7 +20,7 @@ export default function startGame() {
 
   let gameProbs = {
     currentLevel: 0,
-    maxLevel: 15,
+    maxLevel: 16,
     bombCount: 0,
     level: firstLevel,
     field: field,
