@@ -73,7 +73,7 @@ export default class Level {
   movePlayerInArray(moveX, moveY) {
     let entityArray = this.entityArray;
     let itemArray = this.itemArray;
-
+    
     entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] = "";
     entityArray[this.currPlayerPosition[1] + moveY][
       this.currPlayerPosition[0] + moveX
@@ -177,41 +177,97 @@ export default class Level {
   }
 
   moveEnemies(){
-    // let array = this.entityArray; [Entitätenarray]
-    this.enemies.forEach(enemy => { //für jedes Element steckt nun einmal im Durchlauf in der Variable Enemy
-      // let x = enemy.position[0];
-      // let y = enemy.position[1];
-      if(enemy.type == 'm1'){
-        this.entityArray[enemy.position[1]][enemy.position[0]] = "";
-        if((enemy.position[1] + enemy.direction >= this.entityArray.length) || (enemy.position[1] + enemy.direction < 0) 
-        || (this.itemArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "s") || (this.entityArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "m1")
-        || (this.entityArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "m2") || (this.backgroundArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "14")){
-          enemy.direction *= -1;
-        }
+    this.enemies.forEach(enemy => {
+      if(this.enemyCantMove(enemy.position, enemy.direction, enemy.type, this.backgroundArray, this.itemArray, this.entityArray)){
+        return;
+      }
+      this.entityArray[enemy.position[1]][enemy.position[0]] = "";
+      if(this.checkCollisionEnemies(enemy.position, enemy.direction, enemy.type, this.backgroundArray, this.itemArray, this.entityArray)){
+        enemy.direction *= -1;
+      }
+      if(enemy.type =='m1'){
         enemy.position[1] += enemy.direction;
         this.entityArray[enemy.position[1]][enemy.position[0]] = "m1";
-      } else{
-        this.entityArray[enemy.position[1]][enemy.position[0]] = "";
-        if((enemy.position[0] + enemy.direction >= this.entityArray.length) || (enemy.position[0] + enemy.direction < 0)
-        || (this.itemArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "s") || (this.entityArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "m1")
-        || (this.entityArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "m2") || (this.backgroundArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "14")){
-          enemy.direction *= -1;
-        }
+      }
+      else{
         enemy.position[0] += enemy.direction;
         this.entityArray[enemy.position[1]][enemy.position[0]] = "m2";
       }
     })
   }
 
-  playerGotKilled(){
-  if((this.entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] == "m1") || (this.entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] == "m2")){
+  playerGotKilled(moveX, moveY){
+  if((this.entityArray[this.currPlayerPosition[1]+moveY][this.currPlayerPosition[0]+moveX] == "m1")
+      || (this.entityArray[this.currPlayerPosition[1]+moveY][this.currPlayerPosition[0]+moveX] == "m2")
+      ){
     return true;
    }else{
     return false
     }
   }
 
-  checkCollisionEnemies(position, moveX, moveY){
-
+  checkCollisionEnemies(pos, dir, type, background, item, entity){
+    if(type == 'm1'){
+      if((pos[1] + dir >= entity.length) 
+          || (pos[1] + dir < 0) 
+          || (item[pos[1]+dir][pos[0]] == "s") 
+          || (entity[pos[1]+dir][pos[0]] == "m1")
+          || (entity[pos[1]+dir][pos[0]] == "m2") 
+          || (background[pos[1]+dir][pos[0]] == "13")
+          || (background[pos[1]+dir][pos[0]] == "14")){
+            return true;
+        }
+      }
+    else{
+      if((pos[0] + dir >= entity.length) 
+          || (pos[0] + dir < 0)
+          || (item[pos[1]][pos[0]+dir] == "s")
+          || (entity[pos[1]][pos[0]+dir] == "m1")
+          || (entity[pos[1]][pos[0]+dir] == "m2")
+          || (background[pos[1]][pos[0]+dir] == "13")
+          || (background[pos[1]][pos[0]+dir] == "14")){
+          return true;
+        }
+    }
+  }
+  enemyCantMove(pos, dir, type, background, item, entity){
+    if(type == 'm1'){
+      if(((pos[1] + dir >= entity.length) 
+          || (pos[1] + dir < 0) 
+          || (item[pos[1]+dir][pos[0]] == "s") 
+          || (entity[pos[1]+dir][pos[0]] == "m1")
+          || (entity[pos[1]+dir][pos[0]] == "m2") 
+          || (background[pos[1]+dir][pos[0]] == "13")
+          || (background[pos[1]+dir][pos[0]] == "14"))
+          && ((pos[1] - dir >= entity.length)
+          || (item[pos[1]-dir][pos[0]] == "s")
+          || (entity[pos[1]-dir][pos[0]] == "m1")
+          || (entity[pos[1]-dir][pos[0]] == "m2") 
+          || (background[pos[1]-dir][pos[0]] == "13")
+          || (background[pos[1]-dir][pos[0]] == "14"))){
+            return true;
+        }
+      }
+    else{
+      if(((pos[0] + dir >= entity.length) 
+        || (pos[0] + dir < 0)
+        || (item[pos[1]][pos[0]+dir] == "s")
+        || (entity[pos[1]][pos[0]+dir] == "m1")
+        || (entity[pos[1]][pos[0]+dir] == "m2")
+        || (background[pos[1]][pos[0]+dir] == "13")
+        || (background[pos[1]][pos[0]+dir] == "14"))
+        && ((pos[0] - dir < 0)
+        || (item[pos[1]][pos[0]-dir] == "s")
+        || (entity[pos[1]][pos[0]-dir] == "m1")
+        || (entity[pos[1]][pos[0]-dir] == "m2")
+        || (background[pos[1]][pos[0]-dir] == "13")
+        || (background[pos[1]][pos[0]-dir] == "14"))){
+          console.log(dir);
+          return true;
+        }
+        else{
+          return false;
+        }
+    }
   }
 }
