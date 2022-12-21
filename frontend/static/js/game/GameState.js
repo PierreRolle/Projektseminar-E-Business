@@ -127,7 +127,6 @@ export default function startGame() {
             game.setLevel(getLevelFromDb(game.currentLevel + 1));
             game.incrementCurrentLevel();
             game.setBombCount(0);
-            window.location.href = "/end";
           }
           else if(game.level.checkCanEndGame()){
           window.location.href = "/end";
