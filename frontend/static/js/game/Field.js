@@ -151,6 +151,26 @@ export default class GameField {
         return [0, 560];
       case "20":
         return [240,400];
+      case "21":
+        return [80,560];
+      case "22":
+        return [160,560];
+      case "23":
+        return [240,560];
+      case "24":
+        return [0,640];
+      case "25":
+        return [80,640];
+      case "26":
+        return [160,640];
+      case "27":
+        return [240,640];
+      case "28":
+        return [0,720];
+      case "29":
+        return [80,720];
+      case "30": 
+        return [160,720]     
       default:
         return [0, 0];
     }
