@@ -778,6 +778,7 @@
       ],    
     },
     { //Level 15
+      timeToComplete: 500,
       startPosition: [11,1],
       endPosition: [1,8],
       teleportPosition1: [1,5],
@@ -838,7 +839,7 @@
       ],
     },
     { //Level 16
-      timeToComplete: 500,
+      timeToComplete: 999,
       startPosition: [6,10],
       endPosition: [6,4],
       teleportPosition1: [],
