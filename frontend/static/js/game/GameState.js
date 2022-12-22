@@ -36,8 +36,6 @@ export default function startGame() {
    * Durchlaufen des aktuellen Levels mit der Id levelIndex
    */
   const playLevel = (levelIndex) => {
-    game.setLevel(getLevelFromDb(levelIndex));
-
     entityImage.onload = () => {
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
@@ -47,8 +45,7 @@ export default function startGame() {
     const intervalId = window.setInterval(function(){
       game.level.moveEnemies();
       if(game.level.playerGotKilled()){
-        game.setLevel(getLevelFromDb(game.currentLevel));
-        game.setBombCount(0);
+        game.resetLevel();
         }
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
@@ -64,6 +61,7 @@ export default function startGame() {
               game.level.movePlayerInArray(0, -1);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
+                document.getElementById("tnt-count").innerHTML = game.bombCount;
               }
             }
           }
@@ -76,6 +74,7 @@ export default function startGame() {
               game.level.movePlayerInArray(0, 1);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
+                document.getElementById("tnt-count").innerHTML = game.bombCount;
               }
             }
           }
@@ -88,6 +87,7 @@ export default function startGame() {
               game.level.movePlayerInArray(-1, 0);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
+                document.getElementById("tnt-count").innerHTML = game.bombCount;
               }
             }
           }
@@ -100,6 +100,7 @@ export default function startGame() {
               game.level.movePlayerInArray(1, 0);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
+                document.getElementById("tnt-count").innerHTML = game.bombCount;
               }
             }
           }
@@ -110,9 +111,11 @@ export default function startGame() {
             game.level.teleport();
           }
           if (game.level.checkCanExitLevel(game)) {
+            game.clearTimer()
             game.setLevel(getLevelFromDb(game.currentLevel + 1));
             game.incrementCurrentLevel();
             game.setBombCount(0);
+            document.getElementById("tnt-count").innerHTML = game.bombCount;
           }
           if(game.level.checkCanEndGame(game)){
             window.location.href = "/end";
@@ -122,19 +125,16 @@ export default function startGame() {
         case "q":
           if (game.bombCount > 0) {
             const tntsPlaced = game.level.placeTnt();
-            game.setBombCount(game.bombCount - 1);
-            setTimeout(() => {
-              clearTnt(tntsPlaced, game);
-              game.field.drawBackground(game.level.backgroundArray);
-              game.field.drawItems(game.level.itemArray);
-              game.field.drawEntities(game.level.entityArray);
-            }, 1000);
+            if(tntsPlaced.length !== 0) {
+              game.setBombCount(game.bombCount - 1);
+              document.getElementById("tnt-count").innerHTML = game.bombCount;
+              game.startTntTimer(tntsPlaced);
+            }
           }
           break;
 
         case "r":
-          game.setLevel(getLevelFromDb(game.currentLevel));
-          game.setBombCount(0);
+          game.resetLevel()
           break;
         default:
           break;
@@ -142,12 +142,6 @@ export default function startGame() {
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
       game.field.drawEntities(game.level.entityArray);
-    });
-  };
-
-  const clearTnt = (tntsPlaced, game) => {
-    tntsPlaced.forEach((tnt) => {
-      game.level.itemArray[tnt[0]][tnt[1]] = "";
     });
   };
 

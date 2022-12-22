@@ -15,6 +15,7 @@ export default class Level {
     this.backgroundArray = level.backgroundArray;
     this.itemArray = level.itemArray;
     this.entityArray = level.entityArray;
+    this.timeToComplete = level.timeToComplete;
     this.teleportPosition1 = level.teleportPosition1;
     this.teleportPosition2 = level.teleportPosition2;
   }
