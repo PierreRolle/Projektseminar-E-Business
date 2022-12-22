@@ -11,6 +11,7 @@ export default class Level {
     this.enemies = level.enemies;
     this.startPosition = level.startPosition;
     this.endPosition = level.endPosition;
+    this.enemies = level.enemies;
     this.currPlayerPosition = level.startPosition;
     this.backgroundArray = level.backgroundArray;
     this.itemArray = level.itemArray;
@@ -76,7 +77,7 @@ export default class Level {
   movePlayerInArray(moveX, moveY) {
     let entityArray = this.entityArray;
     let itemArray = this.itemArray;
-
+    
     entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] = "";
     entityArray[this.currPlayerPosition[1] + moveY][
       this.currPlayerPosition[0] + moveX
@@ -142,7 +143,13 @@ export default class Level {
       this.currPlayerPosition[1] == this.endPosition[1]
     );
   }
-
+  checkCanEndGame(game) {
+    return (
+      game.currentLevel == game.maxLevel &&
+      this.currPlayerPosition[0] == this.endPosition[0] &&
+      this.currPlayerPosition[1] == this.endPosition[1]
+    );
+  }
   /**
    * entfernt Stein ("s") aus Item Array für alle Felder, die sich um den Spieler befinden (3x3)
    */
@@ -262,6 +269,101 @@ export default class Level {
     return true;
    }else{
     return false
+    }
+  }
+
+  moveEnemies(){
+    this.enemies.forEach(enemy => {
+      if(this.enemyCantMove(enemy.position, enemy.direction, enemy.type, this.backgroundArray, this.itemArray, this.entityArray)){
+        return;
+      }
+      this.entityArray[enemy.position[1]][enemy.position[0]] = "";
+      if(this.checkCollisionEnemies(enemy.position, enemy.direction, enemy.type, this.backgroundArray, this.itemArray, this.entityArray)){
+        enemy.direction *= -1;
+      }
+      if(enemy.type =='m1'){
+        enemy.position[1] += enemy.direction;
+        this.entityArray[enemy.position[1]][enemy.position[0]] = "m1";
+      }
+      else{
+        enemy.position[0] += enemy.direction;
+        this.entityArray[enemy.position[1]][enemy.position[0]] = "m2";
+      }
+    })
+  }
+
+  playerGotKilled(moveX, moveY){
+  if((this.entityArray[this.currPlayerPosition[1]+moveY][this.currPlayerPosition[0]+moveX] == "m1")
+      || (this.entityArray[this.currPlayerPosition[1]+moveY][this.currPlayerPosition[0]+moveX] == "m2")
+      ){
+    return true;
+   }else{
+    return false
+    }
+  }
+
+  checkCollisionEnemies(pos, dir, type, background, item, entity){
+    if(type == 'm1'){
+      if((pos[1] + dir >= entity.length) 
+          || (pos[1] + dir < 0) 
+          || (item[pos[1]+dir][pos[0]] == "s") 
+          || (entity[pos[1]+dir][pos[0]] == "m1")
+          || (entity[pos[1]+dir][pos[0]] == "m2") 
+          || (background[pos[1]+dir][pos[0]] == "13")
+          || (background[pos[1]+dir][pos[0]] == "14")){
+            return true;
+        }
+      }
+    else{
+      if((pos[0] + dir >= entity.length) 
+          || (pos[0] + dir < 0)
+          || (item[pos[1]][pos[0]+dir] == "s")
+          || (entity[pos[1]][pos[0]+dir] == "m1")
+          || (entity[pos[1]][pos[0]+dir] == "m2")
+          || (background[pos[1]][pos[0]+dir] == "13")
+          || (background[pos[1]][pos[0]+dir] == "14")){
+          return true;
+        }
+    }
+  }
+  enemyCantMove(pos, dir, type, background, item, entity){
+    if(type == 'm1'){
+      if(((pos[1] + dir >= entity.length) 
+          || (pos[1] + dir < 0) 
+          || (item[pos[1]+dir][pos[0]] == "s") 
+          || (entity[pos[1]+dir][pos[0]] == "m1")
+          || (entity[pos[1]+dir][pos[0]] == "m2") 
+          || (background[pos[1]+dir][pos[0]] == "13")
+          || (background[pos[1]+dir][pos[0]] == "14"))
+          && ((pos[1] - dir >= entity.length)
+          || (item[pos[1]-dir][pos[0]] == "s")
+          || (entity[pos[1]-dir][pos[0]] == "m1")
+          || (entity[pos[1]-dir][pos[0]] == "m2") 
+          || (background[pos[1]-dir][pos[0]] == "13")
+          || (background[pos[1]-dir][pos[0]] == "14"))){
+            return true;
+        }
+      }
+    else{
+      if(((pos[0] + dir >= entity.length) 
+        || (pos[0] + dir < 0)
+        || (item[pos[1]][pos[0]+dir] == "s")
+        || (entity[pos[1]][pos[0]+dir] == "m1")
+        || (entity[pos[1]][pos[0]+dir] == "m2")
+        || (background[pos[1]][pos[0]+dir] == "13")
+        || (background[pos[1]][pos[0]+dir] == "14"))
+        && ((pos[0] - dir < 0)
+        || (item[pos[1]][pos[0]-dir] == "s")
+        || (entity[pos[1]][pos[0]-dir] == "m1")
+        || (entity[pos[1]][pos[0]-dir] == "m2")
+        || (background[pos[1]][pos[0]-dir] == "13")
+        || (background[pos[1]][pos[0]-dir] == "14"))){
+          console.log(dir);
+          return true;
+        }
+        else{
+          return false;
+        }
     }
   }
 }

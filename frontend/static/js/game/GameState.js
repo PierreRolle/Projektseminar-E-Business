@@ -44,8 +44,9 @@ export default function startGame() {
 
     const intervalId = window.setInterval(function(){
       game.level.moveEnemies();
-      if(game.level.playerGotKilled()){
-        game.resetLevel();
+      if(game.level.playerGotKilled(0, 0)){
+        game.setLevel(getLevelFromDb(game.currentLevel));
+        game.setBombCount(0);
         }
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
@@ -58,6 +59,11 @@ export default function startGame() {
           if (game.level.currPlayerPosition[1] > 0) {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(0, -1)) != false) {
+              if(game.level.playerGotKilled(0, -1)){ //checkt, ob Spieler auf Monster läuft
+                game.setLevel(getLevelFromDb(game.currentLevel));
+                game.setBombCount(0);
+                break;
+              }
               game.level.movePlayerInArray(0, -1);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
@@ -71,6 +77,11 @@ export default function startGame() {
           if (game.level.currPlayerPosition[1] < 12) {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(0, 1)) != false) {
+              if(game.level.playerGotKilled(0, 1)){ //checkt, ob Spieler auf Monster läuft
+                game.setLevel(getLevelFromDb(game.currentLevel));
+                game.setBombCount(0);
+                break;
+              }
               game.level.movePlayerInArray(0, 1);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
@@ -84,6 +95,11 @@ export default function startGame() {
           if (game.level.currPlayerPosition[0] > 0) {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(-1, 0)) != false) {
+              if(game.level.playerGotKilled(-1, 0)){ //checkt, ob Spieler auf Monster läuft
+                game.setLevel(getLevelFromDb(game.currentLevel));
+                game.setBombCount(0);
+                break;
+              }
               game.level.movePlayerInArray(-1, 0);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
@@ -97,6 +113,11 @@ export default function startGame() {
           if (game.level.currPlayerPosition[0] < 12) {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(1, 0)) != false) {
+              if(game.level.playerGotKilled(1, 0)){ //checkt, ob Spieler auf Monster läuft
+                game.setLevel(getLevelFromDb(game.currentLevel));
+                game.setBombCount(0);
+                break;
+              }
               game.level.movePlayerInArray(1, 0);
               if (isTnt == "t2") {
                 game.setBombCount(game.bombCount + 1);
@@ -138,6 +159,10 @@ export default function startGame() {
           break;
         default:
           break;
+      }
+      if(game.level.playerGotKilled(0, 0)){
+      game.setLevel(getLevelFromDb(game.currentLevel));
+      game.setBombCount(0);
       }
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
