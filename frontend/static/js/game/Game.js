@@ -9,7 +9,6 @@ export default class Game {
     this.bombCount = this.probs.bombCount;
     this.level = this.probs.level;
     this.field = this.probs.field;
-    console.log("Set from constructor");
     this.timer = this.startTimer();
   }
 
@@ -65,7 +64,6 @@ export default class Game {
   resetLevel() {
     this.clearTimer();
     this.clearTntTimer();
-    console.log("set level from reset");
     this.setLevel(getLevelFromDb(this.currentLevel));
     this.setBombCount(0);
     document.getElementById("tnt-count").innerHTML = this.bombCount;

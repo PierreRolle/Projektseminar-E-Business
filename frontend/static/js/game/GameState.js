@@ -167,7 +167,6 @@ export default function startGame() {
       game.field.drawEntities(game.level.entityArray);
     };
 
-    console.log(window.keyHandler);
     window.addEventListener("keydown", window.keyHandler);
   };
 

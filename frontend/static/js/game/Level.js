@@ -429,7 +429,6 @@ export default class Level {
           background[pos[1]][pos[0] - dir] == "13" ||
           background[pos[1]][pos[0] - dir] == "14")
       ) {
-        console.log(dir);
         return true;
       } else {
         return false;
