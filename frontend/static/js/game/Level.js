@@ -77,7 +77,7 @@ export default class Level {
   movePlayerInArray(moveX, moveY) {
     let entityArray = this.entityArray;
     let itemArray = this.itemArray;
-    
+
     entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] = "";
     entityArray[this.currPlayerPosition[1] + moveY][
       this.currPlayerPosition[0] + moveX
@@ -187,27 +187,36 @@ export default class Level {
     }
     return tntsPlaced;
   }
-/**
- * Ueberprueft, ob der Spieler sich auf einem Teleporter-Feld befindet, wenn ja, wird ein Value >0 zurueckgegeben, sonst 0
- */
+  /**
+   * Ueberprueft, ob der Spieler sich auf einem Teleporter-Feld befindet, wenn ja, wird ein Value >0 zurueckgegeben, sonst 0
+   */
   checkCanTeleport() {
-    if(this.teleportPosition1.length > 0 && this.teleportPosition2.length > 0){
-      if (this.currPlayerPosition[0] == this.teleportPosition1[0] &&
-        this.currPlayerPosition[1] == this.teleportPosition1[1])
-        {return 1;}
-      if (this.currPlayerPosition[0] == this.teleportPosition2[0] &&
-      this.currPlayerPosition[1] == this.teleportPosition2[1])
-        {return 1;}  
+    if (
+      this.teleportPosition1.length > 0 &&
+      this.teleportPosition2.length > 0
+    ) {
+      if (
+        this.currPlayerPosition[0] == this.teleportPosition1[0] &&
+        this.currPlayerPosition[1] == this.teleportPosition1[1]
+      ) {
+        return 1;
+      }
+      if (
+        this.currPlayerPosition[0] == this.teleportPosition2[0] &&
+        this.currPlayerPosition[1] == this.teleportPosition2[1]
+      ) {
+        return 1;
+      }
     }
     return 0;
-}
-/**
- * Aendert die Position des Spielers je nach Teleportfeld. auf welchem er sich befindet
- * Referenziert das aktuell gezeichnete Entity-Array um es spaeter mit der neuen Spieler-Position zu ueberschreiben
- * Befindet sich der Spieler auf dem ersten Teleporter, wird die Spielerposition zur Position des Teleporters 2 geaendert und das array angepasst
- * Befindet sich der Spieler auf dem zweiten Teleporter, wird die Spielerposition zur Position des Teleporters 1 geaendert und das array angepasst
- * Es wird die Methode setEntityArray mit dem neuen Array aufgerufen
- */
+  }
+  /**
+   * Aendert die Position des Spielers je nach Teleportfeld. auf welchem er sich befindet
+   * Referenziert das aktuell gezeichnete Entity-Array um es spaeter mit der neuen Spieler-Position zu ueberschreiben
+   * Befindet sich der Spieler auf dem ersten Teleporter, wird die Spielerposition zur Position des Teleporters 2 geaendert und das array angepasst
+   * Befindet sich der Spieler auf dem zweiten Teleporter, wird die Spielerposition zur Position des Teleporters 1 geaendert und das array angepasst
+   * Es wird die Methode setEntityArray mit dem neuen Array aufgerufen
+   */
 
   teleport() {
     let array = this.entityArray;
@@ -215,15 +224,15 @@ export default class Level {
     let p1 = this.currPlayerPosition[1].valueOf();
     array[this.currPlayerPosition[1]][this.currPlayerPosition[0]] = "";
 
-    if(p1==this.teleportPosition1[1] && p0==this.teleportPosition1[0]){
-      this.currPlayerPosition[0]=this.teleportPosition2[0];
-      this.currPlayerPosition[1]=this.teleportPosition2[1];
+    if (p1 == this.teleportPosition1[1] && p0 == this.teleportPosition1[0]) {
+      this.currPlayerPosition[0] = this.teleportPosition2[0];
+      this.currPlayerPosition[1] = this.teleportPosition2[1];
       array[this.teleportPosition2[1]][this.teleportPosition2[0]] = "p";
     }
 
-    if(p1==this.teleportPosition2[1] && p0==this.teleportPosition2[0]){
-      this.currPlayerPosition[0]=this.teleportPosition1[0];
-      this.currPlayerPosition[1]=this.teleportPosition1[1];
+    if (p1 == this.teleportPosition2[1] && p0 == this.teleportPosition2[0]) {
+      this.currPlayerPosition[0] = this.teleportPosition1[0];
+      this.currPlayerPosition[1] = this.teleportPosition1[1];
       array[this.teleportPosition1[1]][this.teleportPosition1[0]] = "p";
     }
 
@@ -237,133 +246,194 @@ export default class Level {
       this.currPlayerPosition[1] == this.endPosition[1]
     );
   }
-  moveEnemies(){
+  moveEnemies() {
     // let array = this.entityArray; [Entitätenarray]
-    this.enemies.forEach(enemy => { //für jedes Element steckt nun einmal im Durchlauf in der Variable Enemy
+    this.enemies.forEach((enemy) => {
+      //für jedes Element steckt nun einmal im Durchlauf in der Variable Enemy
       // let x = enemy.position[0];
       // let y = enemy.position[1];
-      if(enemy.type == 'm1'){
+      if (enemy.type == "m1") {
         this.entityArray[enemy.position[1]][enemy.position[0]] = "";
-        if((enemy.position[1] + enemy.direction >= this.entityArray.length)||(enemy.position[1] + enemy.direction < 0)||
-         (this.itemArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "s")||(this.entityArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "m1")||
-         (this.entityArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "m2")||(this.backgroundArray[enemy.position[1]+enemy.direction][enemy.position[0]] == "14")){
+        if (
+          enemy.position[1] + enemy.direction >= this.entityArray.length ||
+          enemy.position[1] + enemy.direction < 0 ||
+          this.itemArray[enemy.position[1] + enemy.direction][
+            enemy.position[0]
+          ] == "s" ||
+          this.entityArray[enemy.position[1] + enemy.direction][
+            enemy.position[0]
+          ] == "m1" ||
+          this.entityArray[enemy.position[1] + enemy.direction][
+            enemy.position[0]
+          ] == "m2" ||
+          this.backgroundArray[enemy.position[1] + enemy.direction][
+            enemy.position[0]
+          ] == "14"
+        ) {
           enemy.direction *= -1;
         }
         enemy.position[1] += enemy.direction;
         this.entityArray[enemy.position[1]][enemy.position[0]] = "m1";
-      } else{
+      } else {
         this.entityArray[enemy.position[1]][enemy.position[0]] = "";
-        if((enemy.position[0] + enemy.direction >= this.entityArray.length)||(enemy.position[0] + enemy.direction < 0)||
-         (this.itemArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "s")||(this.entityArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "m1")||
-         (this.entityArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "m2")||(this.backgroundArray[enemy.position[1]][enemy.position[0]+enemy.direction] == "14")){
+        if (
+          enemy.position[0] + enemy.direction >= this.entityArray.length ||
+          enemy.position[0] + enemy.direction < 0 ||
+          this.itemArray[enemy.position[1]][
+            enemy.position[0] + enemy.direction
+          ] == "s" ||
+          this.entityArray[enemy.position[1]][
+            enemy.position[0] + enemy.direction
+          ] == "m1" ||
+          this.entityArray[enemy.position[1]][
+            enemy.position[0] + enemy.direction
+          ] == "m2" ||
+          this.backgroundArray[enemy.position[1]][
+            enemy.position[0] + enemy.direction
+          ] == "14"
+        ) {
           enemy.direction *= -1;
         }
         enemy.position[0] += enemy.direction;
         this.entityArray[enemy.position[1]][enemy.position[0]] = "m2";
       }
-    })
+    });
   }
 
-  playerGotKilled(){
-  if((this.entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] == "m1") || (this.entityArray[this.currPlayerPosition[1]][this.currPlayerPosition[0]] == "m2")){
-    return true;
-   }else{
-    return false
+  playerGotKilled() {
+    if (
+      this.entityArray[this.currPlayerPosition[1]][
+        this.currPlayerPosition[0]
+      ] == "m1" ||
+      this.entityArray[this.currPlayerPosition[1]][
+        this.currPlayerPosition[0]
+      ] == "m2"
+    ) {
+      return true;
+    } else {
+      return false;
     }
   }
 
-  moveEnemies(){
-    this.enemies.forEach(enemy => {
-      if(this.enemyCantMove(enemy.position, enemy.direction, enemy.type, this.backgroundArray, this.itemArray, this.entityArray)){
+  moveEnemies() {
+    this.enemies.forEach((enemy) => {
+      if (
+        this.enemyCantMove(
+          enemy.position,
+          enemy.direction,
+          enemy.type,
+          this.backgroundArray,
+          this.itemArray,
+          this.entityArray
+        )
+      ) {
         return;
       }
       this.entityArray[enemy.position[1]][enemy.position[0]] = "";
-      if(this.checkCollisionEnemies(enemy.position, enemy.direction, enemy.type, this.backgroundArray, this.itemArray, this.entityArray)){
+      if (
+        this.checkCollisionEnemies(
+          enemy.position,
+          enemy.direction,
+          enemy.type,
+          this.backgroundArray,
+          this.itemArray,
+          this.entityArray
+        )
+      ) {
         enemy.direction *= -1;
       }
-      if(enemy.type =='m1'){
+      if (enemy.type == "m1") {
         enemy.position[1] += enemy.direction;
         this.entityArray[enemy.position[1]][enemy.position[0]] = "m1";
-      }
-      else{
+      } else {
         enemy.position[0] += enemy.direction;
         this.entityArray[enemy.position[1]][enemy.position[0]] = "m2";
       }
-    })
+    });
   }
 
-  playerGotKilled(moveX, moveY){
-  if((this.entityArray[this.currPlayerPosition[1]+moveY][this.currPlayerPosition[0]+moveX] == "m1")
-      || (this.entityArray[this.currPlayerPosition[1]+moveY][this.currPlayerPosition[0]+moveX] == "m2")
-      ){
-    return true;
-   }else{
-    return false
+  playerGotKilled(moveX, moveY) {
+    if (
+      this.entityArray[this.currPlayerPosition[1] + moveY][
+        this.currPlayerPosition[0] + moveX
+      ] == "m1" ||
+      this.entityArray[this.currPlayerPosition[1] + moveY][
+        this.currPlayerPosition[0] + moveX
+      ] == "m2"
+    ) {
+      return true;
+    } else {
+      return false;
     }
   }
 
-  checkCollisionEnemies(pos, dir, type, background, item, entity){
-    if(type == 'm1'){
-      if((pos[1] + dir >= entity.length) 
-          || (pos[1] + dir < 0) 
-          || (item[pos[1]+dir][pos[0]] == "s") 
-          || (entity[pos[1]+dir][pos[0]] == "m1")
-          || (entity[pos[1]+dir][pos[0]] == "m2") 
-          || (background[pos[1]+dir][pos[0]] == "13")
-          || (background[pos[1]+dir][pos[0]] == "14")){
-            return true;
-        }
+  checkCollisionEnemies(pos, dir, type, background, item, entity) {
+    if (type == "m1") {
+      if (
+        pos[1] + dir >= entity.length ||
+        pos[1] + dir < 0 ||
+        item[pos[1] + dir][pos[0]] == "s" ||
+        entity[pos[1] + dir][pos[0]] == "m1" ||
+        entity[pos[1] + dir][pos[0]] == "m2" ||
+        background[pos[1] + dir][pos[0]] == "13" ||
+        background[pos[1] + dir][pos[0]] == "14"
+      ) {
+        return true;
       }
-    else{
-      if((pos[0] + dir >= entity.length) 
-          || (pos[0] + dir < 0)
-          || (item[pos[1]][pos[0]+dir] == "s")
-          || (entity[pos[1]][pos[0]+dir] == "m1")
-          || (entity[pos[1]][pos[0]+dir] == "m2")
-          || (background[pos[1]][pos[0]+dir] == "13")
-          || (background[pos[1]][pos[0]+dir] == "14")){
-          return true;
-        }
+    } else {
+      if (
+        pos[0] + dir >= entity.length ||
+        pos[0] + dir < 0 ||
+        item[pos[1]][pos[0] + dir] == "s" ||
+        entity[pos[1]][pos[0] + dir] == "m1" ||
+        entity[pos[1]][pos[0] + dir] == "m2" ||
+        background[pos[1]][pos[0] + dir] == "13" ||
+        background[pos[1]][pos[0] + dir] == "14"
+      ) {
+        return true;
+      }
     }
   }
-  enemyCantMove(pos, dir, type, background, item, entity){
-    if(type == 'm1'){
-      if(((pos[1] + dir >= entity.length) 
-          || (pos[1] + dir < 0) 
-          || (item[pos[1]+dir][pos[0]] == "s") 
-          || (entity[pos[1]+dir][pos[0]] == "m1")
-          || (entity[pos[1]+dir][pos[0]] == "m2") 
-          || (background[pos[1]+dir][pos[0]] == "13")
-          || (background[pos[1]+dir][pos[0]] == "14"))
-          && ((pos[1] - dir >= entity.length)
-          || (item[pos[1]-dir][pos[0]] == "s")
-          || (entity[pos[1]-dir][pos[0]] == "m1")
-          || (entity[pos[1]-dir][pos[0]] == "m2") 
-          || (background[pos[1]-dir][pos[0]] == "13")
-          || (background[pos[1]-dir][pos[0]] == "14"))){
-            return true;
-        }
+  enemyCantMove(pos, dir, type, background, item, entity) {
+    if (type == "m1") {
+      if (
+        (pos[1] + dir >= entity.length ||
+          pos[1] + dir < 0 ||
+          item[pos[1] + dir][pos[0]] == "s" ||
+          entity[pos[1] + dir][pos[0]] == "m1" ||
+          entity[pos[1] + dir][pos[0]] == "m2" ||
+          background[pos[1] + dir][pos[0]] == "13" ||
+          background[pos[1] + dir][pos[0]] == "14") &&
+        (pos[1] - dir >= entity.length ||
+          item[pos[1] - dir][pos[0]] == "s" ||
+          entity[pos[1] - dir][pos[0]] == "m1" ||
+          entity[pos[1] - dir][pos[0]] == "m2" ||
+          background[pos[1] - dir][pos[0]] == "13" ||
+          background[pos[1] - dir][pos[0]] == "14")
+      ) {
+        return true;
       }
-    else{
-      if(((pos[0] + dir >= entity.length) 
-        || (pos[0] + dir < 0)
-        || (item[pos[1]][pos[0]+dir] == "s")
-        || (entity[pos[1]][pos[0]+dir] == "m1")
-        || (entity[pos[1]][pos[0]+dir] == "m2")
-        || (background[pos[1]][pos[0]+dir] == "13")
-        || (background[pos[1]][pos[0]+dir] == "14"))
-        && ((pos[0] - dir < 0)
-        || (item[pos[1]][pos[0]-dir] == "s")
-        || (entity[pos[1]][pos[0]-dir] == "m1")
-        || (entity[pos[1]][pos[0]-dir] == "m2")
-        || (background[pos[1]][pos[0]-dir] == "13")
-        || (background[pos[1]][pos[0]-dir] == "14"))){
-          console.log(dir);
-          return true;
-        }
-        else{
-          return false;
-        }
+    } else {
+      if (
+        (pos[0] + dir >= entity.length ||
+          pos[0] + dir < 0 ||
+          item[pos[1]][pos[0] + dir] == "s" ||
+          entity[pos[1]][pos[0] + dir] == "m1" ||
+          entity[pos[1]][pos[0] + dir] == "m2" ||
+          background[pos[1]][pos[0] + dir] == "13" ||
+          background[pos[1]][pos[0] + dir] == "14") &&
+        (pos[0] - dir < 0 ||
+          item[pos[1]][pos[0] - dir] == "s" ||
+          entity[pos[1]][pos[0] - dir] == "m1" ||
+          entity[pos[1]][pos[0] - dir] == "m2" ||
+          background[pos[1]][pos[0] - dir] == "13" ||
+          background[pos[1]][pos[0] - dir] == "14")
+      ) {
+        console.log(dir);
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }
