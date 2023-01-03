@@ -4,8 +4,7 @@ export default class extends AbstractView {
   constructor(probs) {
     super(probs);
     this.setTitle("Game");
-    this.path = "/game"
-    this.clearInterval = () => {console.log("clearInterval")}
+    this.path = "/game";
   }
 
   async getHtml() {
@@ -20,7 +19,14 @@ export default class extends AbstractView {
             <div id="time-to-complete" style="padding-right:10px"></div>
             <div>Sek.</div>
           </div> 
-          <a href="/mainMenu" class="closeButton" data-link onclick="(() => {Array.from(Array(100).keys()).map(e => clearInterval(e))})()">X</a> 
+          <a href="/mainMenu" class="closeButton" data-link onclick="
+          (() => {
+            Array.from(Array(1000).keys()).map((e) => {
+        clearInterval(e);
+      });
+            window.removeEventListener('keydown', window.keyHandler);
+          })()
+          ">X</a> 
         </div>
         <div>
           <canvas width="520px" height="520px" id="gameCanvas"></canvas>
@@ -29,5 +35,3 @@ export default class extends AbstractView {
         `;
   }
 }
-
-  
