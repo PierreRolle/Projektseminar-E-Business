@@ -1,24 +1,12 @@
 .manualContainer {
   width: 550px;
-  height: 600px;
+  height: 560px;
+  
 }
 
 .manualButtonContainer {
-  display: flex;
+  display:flex;
   justify-content: flex-end;
-  height: fit-content;
-}
-
-.closeButton {
-  background-color: transparent;
-  width: fit-content;
-  height: fit-content;
-  font-weight: 700;
-  font-size: larger;
-  border: 0ch;
-  text-decoration: none;
-  color: black;
-  padding-right: 40px
 }
 
 .closeButton:hover {
@@ -26,7 +14,46 @@
   color: rgb(53, 47, 47);
 }
 
+.Button{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-basis: 40%;
+  
+}
+
+.ItemsandEnemies{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-basis: 40%;
+}
+
 .header {
   text-align: center;
   margin: 0;
+}
+
+.Bewegung{
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+.Aktion{
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+.Gegner{
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+.Items{
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+.minus{
+  padding-left: 7px;
 }
