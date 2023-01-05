@@ -20,7 +20,7 @@ export default class extends AbstractView {
           <p>
             Für WASD braucht man nur eine Hand.</br>
 
-          <div class="Bewegung">
+          <div class="headL">
             Bewegung:
           </div>
 
@@ -41,7 +41,7 @@ export default class extends AbstractView {
           </div>
             </br>
 
-          <div class="Aktion">
+          <div class="headL">
             Aktionen: </br>
           </div>
 

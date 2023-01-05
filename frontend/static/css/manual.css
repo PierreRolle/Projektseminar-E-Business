@@ -34,22 +34,7 @@
   margin: 0;
 }
 
-.Bewegung{
-  font-size: 14pt;
-  font-weight: bold;
-}
-
-.Aktion{
-  font-size: 14pt;
-  font-weight: bold;
-}
-
-.Gegner{
-  font-size: 14pt;
-  font-weight: bold;
-}
-
-.Items{
+.headL{
   font-size: 14pt;
   font-weight: bold;
 }

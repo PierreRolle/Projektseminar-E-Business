@@ -17,7 +17,7 @@ export default class extends AbstractView {
           </div>
           <h2 class="header">Dein Freund und Helfer</h2>
           <p>
-          <div class="Gegner">
+          <div class="headL">
             Gegner:</br></br>
           </div>
 
@@ -41,7 +41,7 @@ export default class extends AbstractView {
           </div></br>
           
 
-          <div class="Items">
+          <div class="headL">
             Items: </br></br>
           </div>
           <div class="ItemsandEnemies">
