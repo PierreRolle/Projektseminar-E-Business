@@ -42,26 +42,25 @@ export default function startGame() {
       game.field.drawEntities(game.level.entityArray);
     };
 
-    const intervalId = window.setInterval(function(){
+    const intervalId = window.setInterval(function () {
       game.level.moveEnemies();
-      if(game.level.playerGotKilled(0, 0)){
-        game.setLevel(getLevelFromDb(game.currentLevel));
-        game.setBombCount(0);
-        }
+      if (game.level.playerGotKilled(0, 0)) {
+        game.resetLevel();
+      }
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
       game.field.drawEntities(game.level.entityArray);
     }, 333);
 
-    window.addEventListener("keydown", (e) => {
+    window.keyHandler = (e) => {
       switch (e.key) {
         case "w":
           if (game.level.currPlayerPosition[1] > 0) {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(0, -1)) != false) {
-              if(game.level.playerGotKilled(0, -1)){ //checkt, ob Spieler auf Monster läuft
-                game.setLevel(getLevelFromDb(game.currentLevel));
-                game.setBombCount(0);
+              if (game.level.playerGotKilled(0, -1)) {
+                //checkt, ob Spieler auf Monster läuft
+                game.resetLevel();
                 break;
               }
               game.level.movePlayerInArray(0, -1);
@@ -77,9 +76,9 @@ export default function startGame() {
           if (game.level.currPlayerPosition[1] < 12) {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(0, 1)) != false) {
-              if(game.level.playerGotKilled(0, 1)){ //checkt, ob Spieler auf Monster läuft
-                game.setLevel(getLevelFromDb(game.currentLevel));
-                game.setBombCount(0);
+              if (game.level.playerGotKilled(0, 1)) {
+                //checkt, ob Spieler auf Monster läuft
+                game.resetLevel();
                 break;
               }
               game.level.movePlayerInArray(0, 1);
@@ -95,9 +94,9 @@ export default function startGame() {
           if (game.level.currPlayerPosition[0] > 0) {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(-1, 0)) != false) {
-              if(game.level.playerGotKilled(-1, 0)){ //checkt, ob Spieler auf Monster läuft
-                game.setLevel(getLevelFromDb(game.currentLevel));
-                game.setBombCount(0);
+              if (game.level.playerGotKilled(-1, 0)) {
+                //checkt, ob Spieler auf Monster läuft
+                game.resetLevel();
                 break;
               }
               game.level.movePlayerInArray(-1, 0);
@@ -113,9 +112,9 @@ export default function startGame() {
           if (game.level.currPlayerPosition[0] < 12) {
             let isTnt = false;
             if ((isTnt = game.level.checkCollision(1, 0)) != false) {
-              if(game.level.playerGotKilled(1, 0)){ //checkt, ob Spieler auf Monster läuft
-                game.setLevel(getLevelFromDb(game.currentLevel));
-                game.setBombCount(0);
+              if (game.level.playerGotKilled(1, 0)) {
+                //checkt, ob Spieler auf Monster läuft
+                game.resetLevel();
                 break;
               }
               game.level.movePlayerInArray(1, 0);
@@ -128,17 +127,17 @@ export default function startGame() {
           break;
 
         case "e":
-          if (game.level.checkCanTeleport() > 0){
+          if (game.level.checkCanTeleport() > 0) {
             game.level.teleport();
           }
           if (game.level.checkCanExitLevel(game)) {
-            game.clearTimer()
+            game.clearTimer();
             game.setLevel(getLevelFromDb(game.currentLevel + 1));
             game.incrementCurrentLevel();
             game.setBombCount(0);
             document.getElementById("tnt-count").innerHTML = game.bombCount;
           }
-          if(game.level.checkCanEndGame(game)){
+          if (game.level.checkCanEndGame(game)) {
             window.location.href = "/end";
           }
           break;
@@ -146,7 +145,7 @@ export default function startGame() {
         case "q":
           if (game.bombCount > 0) {
             const tntsPlaced = game.level.placeTnt();
-            if(tntsPlaced.length !== 0) {
+            if (tntsPlaced.length !== 0) {
               game.setBombCount(game.bombCount - 1);
               document.getElementById("tnt-count").innerHTML = game.bombCount;
               game.startTntTimer(tntsPlaced);
@@ -155,19 +154,20 @@ export default function startGame() {
           break;
 
         case "r":
-          game.resetLevel()
+          game.resetLevel();
           break;
         default:
           break;
       }
-      if(game.level.playerGotKilled(0, 0)){
-      game.setLevel(getLevelFromDb(game.currentLevel));
-      game.setBombCount(0);
+      if (game.level.playerGotKilled(0, 0)) {
+        game.resetLevel();
       }
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
       game.field.drawEntities(game.level.entityArray);
-    });
+    };
+
+    window.addEventListener("keydown", window.keyHandler);
   };
 
   playLevel(game.currentLevel);

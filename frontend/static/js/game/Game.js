@@ -34,9 +34,9 @@ export default class Game {
   }
 
   /**
-   * 
+   *
    * @param {*} bombCount
-   * setzt Anzahl der Bombem auf übergebenen Wert 
+   * setzt Anzahl der Bombem auf übergebenen Wert
    */
 
   setBombCount(bombCount) {
@@ -44,15 +44,17 @@ export default class Game {
   }
 
   startTimer() {
-    document.getElementById("time-to-complete").innerHTML = this.level.timeToComplete;
+    document.getElementById("time-to-complete").innerHTML =
+      this.level.timeToComplete;
     const timer = setInterval(() => {
       this.level.timeToComplete--;
-      document.getElementById("time-to-complete").innerHTML = this.level.timeToComplete;
+      document.getElementById("time-to-complete").innerHTML =
+        this.level.timeToComplete;
       if (this.level.timeToComplete === 0) {
-        this.resetLevel()
+        this.resetLevel();
       }
     }, 1000);
-    return timer
+    return timer;
   }
 
   clearTimer() {
@@ -60,8 +62,8 @@ export default class Game {
   }
 
   resetLevel() {
-    this.clearTimer()
-    this.clearTntTimer()
+    this.clearTimer();
+    this.clearTntTimer();
     this.setLevel(getLevelFromDb(this.currentLevel));
     this.setBombCount(0);
     document.getElementById("tnt-count").innerHTML = this.bombCount;
@@ -69,10 +71,10 @@ export default class Game {
 
   startTntTimer(tntsPlaced) {
     this.tntTimer = setTimeout(() => {
-        this.clearTnt(tntsPlaced);
-        this.field.drawBackground(this.level.backgroundArray);
-        this.field.drawItems(this.level.itemArray);
-        this.field.drawEntities(this.level.entityArray);
+      this.clearTnt(tntsPlaced);
+      this.field.drawBackground(this.level.backgroundArray);
+      this.field.drawItems(this.level.itemArray);
+      this.field.drawEntities(this.level.entityArray);
     }, 800);
   }
 
