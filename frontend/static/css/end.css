@@ -1,10 +1,14 @@
 .manualContainerEnd {
-    width: 505px;
-    height: 600px;
-  }
-  .headerEnd{
-    padding-top: 20px;
-  }
-  .imageEnd{
-    padding-bottom: 30px;
-  }
+  width: 505px;
+  height: 600px;
+}
+.headerEnd {
+  padding-top: 20px;
+}
+.imageEnd {
+  padding-bottom: 30px;
+}
+.CloseButtonContainer {
+  display: flex;
+  justify-content: end;
+}
