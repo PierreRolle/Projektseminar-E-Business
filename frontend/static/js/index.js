@@ -3,6 +3,7 @@ import ManualView from "./views/ManualView.js";
 import GameView from "./views/GameView.js";
 import startGame from "./game/GameState.js";
 import EndView from "./views/EndView.js";
+import ManualView2 from "./views/ManualView2.js";
 
 const pathToRegex = (path) =>
   new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
@@ -31,7 +32,8 @@ const router = async () => {
     { path: "/mainMenu", view: MainMenuView },
     { path: "/manual", view: ManualView },
     { path: "/game", view: GameView},
-    { path: "/end", view: EndView}
+    { path: "/end", view: EndView},
+    { path: "/manual2", view: ManualView2}
   ];
 
   // Test each route for potential match

@@ -170,7 +170,25 @@ export default class GameField {
       case "29":
         return [80,720];
       case "30": 
-        return [160,720]     
+        return [160,720];
+      case "31":
+        return [160, 240];
+      case "32":
+        return [240,240];
+      case "33":
+        return [0,320];
+      case "34": 
+        return [80,320]; 
+      case "35":
+        return [160, 320];
+      case "36":
+        return [240,320];
+      case "37":
+        return [0,400];
+      case "38": 
+        return [80,400];
+      case "39": 
+        return [160,400];     
       default:
         return [0, 0];
     }
