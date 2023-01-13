@@ -25,19 +25,19 @@ export default class extends AbstractView {
           </div>
 
           <div class="Button"> 
-            <img src="/static/images/tiles/WTaste.png" height = "48px" width = "48px">- Hoch </br>
+            <img src="/static/images/tiles/WTaste.png" height = "48px" width = "48px">• Hoch </br>
           </div>
 
           <div class="Button"> 
-            <img src="/static/images/tiles/STaste.png" height = "48px" width = "48px">- Runter </br>
+            <img src="/static/images/tiles/STaste.png" height = "48px" width = "48px">• Runter </br>
           </div>
 
           <div class="Button">
-            <img src="/static/images/tiles/ATaste.png" height = "48px" width = "48px">- Links </br>
+            <img src="/static/images/tiles/ATaste.png" height = "48px" width = "48px">• Links </br>
           </div>
 
           <div class="Button">
-            <img src="/static/images/tiles/DTaste.png" height = "48px" width = "48px">- Rechts </br>
+            <img src="/static/images/tiles/DTaste.png" height = "48px" width = "48px">• Rechts </br>
           </div>
             </br>
 
@@ -47,19 +47,19 @@ export default class extends AbstractView {
 
           <div class="Button"> 
             <img src="/static/images/tiles/RTaste.png" height = "48px" width = "48px">
-            - Wiederholen des Levels </br>
+            • Wiederholen des Levels </br>
           </div>
           </br>
           <div class="Button">
             <img src="/static/images/tiles/ETaste.png" height = "48px" width = "48px">
               <div class="Zeile">
-               - Teleportiert, wenn auf 
-              <img src="/static/images/tiles/Teleporter.png" height = "16px" width = "16px"> 
-              benutzt wird. </br>
-               - Bringt einen ins nächste Level, wenn es auf 
-              <img src="/static/images/tiles/Leiter2.png" height = "16px" width = "16px"> 
+               • Teleportiert, wenn auf 
+               <img src="/static/images/tiles/Teleporter.png" height = "16px" width = "16px"> 
+               benutzt wird. </br>
+               • Bringt einen ins nächste Level, wenn es auf 
+               <img src="/static/images/tiles/Leiter2.png" height = "16px" width = "16px"> 
                benutzt wird.</br> 
-               - Birgt den Schatz, wenn es auf 
+               • Birgt den Schatz, wenn es auf 
                <img src="/static/images/tiles/TreasureChest.png" height = "16px" width = "16px"> 
                benutzt wird. </br>
                </div>
@@ -67,7 +67,7 @@ export default class extends AbstractView {
           </br>
           <div class="Button">  
             <img src="/static/images/tiles/QTaste.png" height = "48px" width = "48px">
-            - <div class="minus">
+            • <div class="minus">
              zum Dynamit legen (sprengt Steine in horizontaler und vertikaler Richtung) </br>
           </div>
 
