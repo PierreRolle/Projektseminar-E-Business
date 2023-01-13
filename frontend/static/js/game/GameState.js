@@ -36,6 +36,7 @@ export default function startGame() {
    * Durchlaufen des aktuellen Levels mit der Id levelIndex
    */
   const playLevel = (levelIndex) => {
+    document.getElementById("level-count").innerHTML = game.currentLevel+1;
     entityImage.onload = () => {
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
@@ -136,6 +137,7 @@ export default function startGame() {
             game.incrementCurrentLevel();
             game.setBombCount(0);
             document.getElementById("tnt-count").innerHTML = game.bombCount;
+            document.getElementById("level-count").innerHTML = game.currentLevel+1;
           }
           if (game.level.checkCanEndGame(game)) {
             window.location.href = "/end";

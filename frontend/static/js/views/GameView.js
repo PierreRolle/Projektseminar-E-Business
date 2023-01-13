@@ -18,6 +18,10 @@ export default class extends AbstractView {
           <div style="font-weight:bold; display:flex">
             <div id="time-to-complete" style="padding-right:10px"></div>
             <div>Sek.</div>
+          </div>
+          <div style="font-weight:bold; display:flex">
+            <div style="padding-right: 10px">Level:</div>
+            <div id="level-count">1</div>
           </div> 
           <a href="/mainMenu" class="closeButton" data-link onclick="
           (() => {
@@ -26,7 +30,10 @@ export default class extends AbstractView {
       });
             window.removeEventListener('keydown', window.keyHandler);
           })()
-          ">X</a> 
+          ">
+            <img src="/static/images/Exit.png"
+          height = "24px" width = "24px" >
+          </a> 
         </div>
         <div>
           <canvas width="520px" height="520px" id="gameCanvas"></canvas>

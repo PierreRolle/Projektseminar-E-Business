@@ -9,8 +9,9 @@ export default class extends AbstractView {
   async getHtml() {
     return `
     <div class="manualContainerEnd">
-        <div class="manualButtonContainer">
-            <a href="/mainMenu" class="closeButton" data-link>X</a>
+        <div class="CloseButtonContainer">
+          <a href="/mainMenu" class="closeButton" data-link><img src="/static/images/Exit.png"
+          height = "24px" width = "24px" ></a>
         </div>
         <img class="headerEnd imageEnd" src="/static/images/Schatzinsel_Überschrift.png" width = "500px">
         <img class="imageEnd" src="/static/images/Schatz_geborgen.png" width = "500px">
