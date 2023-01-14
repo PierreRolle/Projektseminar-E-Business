@@ -61,7 +61,7 @@ export default class extends AbstractView {
           </br>
 
           <div class="ItemsandEnemies">
-            <img src="/static/images/tiles/Stein.png" height = "48px" width = "48px"        
+            <img src="/static/images/tiles/Stein.png" height = "48px" width = "48px">        
             <div class="minus">  
               Dein häufigster Feind. 
               Er steht im Weg und muss weg. 
