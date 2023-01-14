@@ -67,7 +67,7 @@ export default class extends AbstractView {
             <img src="/static/images/tiles/Teleporter.png" height = "48px" width = "48px">
               
             <div class="minus"> 
-            Ist meist im Duo anzutreffen. Kann benutzt werden zum teleportieren.</br>
+            Ist meist im Duo anzutreffen. Zwischen ihnen kann man sich hin und her teleportieren.</br>
             </div>
           </div>
           </p>
