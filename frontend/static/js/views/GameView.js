@@ -31,8 +31,10 @@ export default class extends AbstractView {
             window.removeEventListener('keydown', window.keyHandler);
           })()
           ">
+          <div style="padding-right: 20px">
             <img src="/static/images/Exit.png"
           height = "24px" width = "24px" >
+          </div>
           </a> 
         </div>
         <div>
