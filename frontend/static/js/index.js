@@ -31,9 +31,9 @@ const router = async () => {
     { path: "/", view: MainMenuView },
     { path: "/mainMenu", view: MainMenuView },
     { path: "/manual", view: ManualView },
-    { path: "/game", view: GameView},
-    { path: "/end", view: EndView},
-    { path: "/manual2", view: ManualView2}
+    { path: "/game", view: GameView },
+    { path: "/end", view: EndView },
+    { path: "/manual2", view: ManualView2 },
   ];
 
   // Test each route for potential match
@@ -61,8 +61,14 @@ const router = async () => {
 
   if (view.path == "/game") {
     await view.getHtml().then(() => {
+      (() => {
+        Array.from(Array(1000).keys()).map((e) => {
+          clearInterval(e);
+        });
+        window.removeEventListener("keydown", window.keyHandler);
+      })();
       startGame();
-    })
+    });
   }
 };
 

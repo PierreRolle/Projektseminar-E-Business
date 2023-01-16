@@ -23,14 +23,7 @@ export default class extends AbstractView {
             <div style="padding-right: 10px">Level:</div>
             <div id="level-count">1</div>
           </div> 
-          <a href="/mainMenu" class="closeButton" data-link onclick="
-          (() => {
-            Array.from(Array(1000).keys()).map((e) => {
-        clearInterval(e);
-      });
-            window.removeEventListener('keydown', window.keyHandler);
-          })()
-          ">
+          <a href="/mainMenu" class="closeButton" data-link>
           <div style="padding-right: 20px">
             <img src="/static/images/Exit.png"
           height = "24px" width = "24px" >
