@@ -1,0 +1,15 @@
+.gameHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+#gameCanvas {
+    background-color: white;
+}
+
+.gameContainer {
+    flex-direction: column;
+    display: flex;
+    height: 600px;
+}
