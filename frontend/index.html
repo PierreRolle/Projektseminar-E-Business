@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Die Schatzinsel</title>
+    <link rel="stylesheet" href="./static/css/index.css" />
+    <link rel="stylesheet" href="./static/css/mainMenu.css" />
+    <link rel="stylesheet" href="./static/css/manual.css" />
+    <link rel="stylesheet" href="./static/css/game.css" />
+    <link rel="stylesheet" href="./static/css/end.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      function changeToGame() {
+        document.querySelector("#app").innerHTML = `
+              <div class="gameContainer">
+                <div class="gameHeader">
+                  <div style="font-weight:bold; display:flex">
+                    <div style="padding-right: 10px">Tnt:</div>
+                    <div id="tnt-count">0</div>
+                  </div>
+                  <div style="font-weight:bold; display:flex">
+                    <div id="time-to-complete" style="padding-right:10px"></div>
+                    <div>Sek.</div>
+                  </div>
+                  <div style="font-weight:bold; display:flex">
+                    <div style="padding-right: 10px">Level:</div>
+                    <div id="level-count">1</div>
+                  </div> 
+                  <button class="closeButton" onclick="
+                  (() => {
+                    Array.from(Array(1000).keys()).map((e) => {
+                clearInterval(e);
+              });
+                    window.removeEventListener('keydown', window.keyHandler);
+                  })();changeToMainMenu();
+                  ">
+                    <img src="/static/images/Exit.png"
+                  height = "24px" width = "24px" >
+                  </button> 
+                </div>
+                <div>
+                  <canvas width="520px" height="520px" id="gameCanvas"></canvas>
+                </div>
+              </div>
+                `;
+      }
+
+      function changeToManual() {
+        document.querySelector("#app").innerHTML = `
+        <div class="manualContainer">
+          <div class="manualButtonContainer">
+            <button  class="closeButton" onclick="changeToManual2()"> <img src="/static/images/tiles/Weiter.png"
+            height = "24px" width = "24px" > </button>
+              <div class="closebutton">
+              <button onclick="changeToMainMenu()" class="closeButton"><img src="/static/images/Exit.png"
+              height = "24px" width = "24px" ></button> </div>
+          </div>
+          <h2 class="header">Dein Freund und Helfer</h2>
+          <p>
+            Für WASD braucht man nur eine Hand.</br>
+
+          <div class="headL">
+            Bewegung:
+          </div>
+
+          <div class="Button"> 
+            <img src="/static/images/tiles/WTaste.png" height = "48px" width = "48px">- Hoch </br>
+          </div>
+
+          <div class="Button"> 
+            <img src="/static/images/tiles/STaste.png" height = "48px" width = "48px">- Runter </br>
+          </div>
+
+          <div class="Button">
+            <img src="/static/images/tiles/ATaste.png" height = "48px" width = "48px">- Links </br>
+          </div>
+
+          <div class="Button">
+            <img src="/static/images/tiles/DTaste.png" height = "48px" width = "48px">- Rechts </br>
+          </div>
+            </br>
+
+          <div class="headL">
+            Aktionen: </br>
+          </div>
+
+          <div class="Button"> 
+            <img src="/static/images/tiles/RTaste.png" height = "48px" width = "48px">
+            - Wiederholen des Levels </br>
+          </div>
+          </br>
+          <div class="Button">
+            <img src="/static/images/tiles/ETaste.png" height = "48px" width = "48px">
+              <div class="Zeile">
+               - Teleportiert, wenn auf 
+              <img src="/static/images/tiles/Teleporter.png" height = "16px" width = "16px"> 
+              benutzt wird. </br>
+               - Bringt einen ins nächste Level, wenn es auf 
+              <img src="/static/images/tiles/Leiter2.png" height = "16px" width = "16px"> 
+               benutzt wird.</br> 
+               - Birgt den Schatz, wenn es auf 
+               <img src="/static/images/tiles/TreasureChest.png" height = "16px" width = "16px"> 
+               benutzt wird. </br>
+               </div>
+          </div>  
+          </br>
+          <div class="Button">  
+            <img src="/static/images/tiles/QTaste.png" height = "48px" width = "48px">
+            - <div class="minus">
+             zum Dynamit legen (sprengt Steine in horizontaler und vertikaler Richtung) </br>
+          </div>
+
+            </br>
+          </p>
+      </div>
+    `;
+      }
+
+      function changeToManual2() {
+        document.querySelector("#app").innerHTML = `
+        <div class="manualContainer">
+          <div class="manualButtonContainer">
+            <button class="closeButton" onclick="changeToManual()"> <img src="/static/images/tiles/Zurueck.png"
+            height = "24px" width = "24px" > </button>
+            <button onclick="changeToMainMenu()" class="closeButton"><img src="/static/images/Exit.png"
+            height = "24px" width = "24px" ></button>
+          </div>
+          <h2 class="header">Dein Freund und Helfer</h2>
+          <p>
+          <div class="headL">
+            Gegner:</br></br>
+          </div>
+
+          <div class="ItemsandEnemies"> 
+            <img src="/static/images/tiles/Fledermaus.png" height = "48px" width = "48px">
+            -  
+            <div class="minus"> Ein vertikal gehender Gegner. Trifft sie auf eine Wand, dreht sie um. 
+            Hüte dich vor ihren fiesen Zähnen.
+            Sie ist außerdem sehr robust und dementsprechend nicht wegsprengbar.
+            </div> 
+          </div>
+          </br>
+
+          <div class="ItemsandEnemies"> 
+            <img src="/static/images/tiles/Käfer.png" height = "48px" width = "48px">
+            -  
+            <div class="minus"> Ein horizontal gehender Gegner. Trifft er auf eine Wand, dreht er um. 
+            Hüte dich vor seinen spitzen Mundwerkzeugen.</br>
+            Er ist sehr robust und dementsprechend nicht wegsprengbar.
+            </div>
+          </div></br>
+          
+
+          <div class="headL">
+            Items: </br></br>
+          </div>
+          <div class="ItemsandEnemies">
+            <img src="/static/images/tiles/Tnt-klein.png" height = "48px" width = "48px">
+            -  
+            <div class="minus">  Deine wichtigsten Freunde auf deiner Reise. 
+            Kann zum Steine sprengen genutzt werden.
+            </div> </br>
+
+          </div>
+          </br>
+
+          <div class="ItemsandEnemies">
+            <img src="/static/images/tiles/Stein.png" height = "48px" width = "48px">
+            -  
+            <div class="minus">  
+            Dein häufigster Feind. Er steht im Weg und muss weg. 
+            Kann mit Dynamit weggesprengt werden. </br>
+            </div>
+          </div>
+          </br>
+          <div class="ItemsandEnemies">
+            <img src="/static/images/tiles/Teleporter.png" height = "48px" width = "48px">
+            -  
+            <div class="minus"> 
+            Ist meist im Duo anzutreffen. Kann benutzt werden zum teleportieren.</br>
+            </div>
+          </div>
+          </p>
+      </div>
+    `;
+      }
+
+      function changeToEnd() {
+        document.querySelector("#app").innerHTML = `
+    <div class="manualContainerEnd">
+        <div class="CloseButtonContainer">
+          <button class="closeButton" onclick="changeToMainMenu()"><img src="/static/images/Exit.png"
+          height = "24px" width = "24px" ></button>
+        </div>
+        <img class="headerEnd imageEnd" src="/static/images/Schatzinsel_Überschrift.png" width = "500px">
+        <img class="imageEnd" src="/static/images/Schatz_geborgen.png" width = "500px">
+        <img src="/static/images/Herzlichen_Glückwunsch.png" width = "500px">
+        <a href="/mainMenu" class="button" data-link>Zurück zum Hauptmenü!</a>
+    </div>
+    `;
+      }
+
+      function changeToMainMenu() {
+        document.querySelector("#app").innerHTML = `
+    <div>
+    <img src="/static/images/Schatzinsel_Überschrift.png" width = "500px">
+    <div>
+      <button class="button" id="toGameButton">
+        Spiel starten
+      </button>
+      <button class="button" onClick="changeToManual();">
+        Handbuch öffnen
+      </button>
+    </div>
+    </div>
+`;
+      }
+    </script>
+    <script type="module" src="./static/js/index.js"></script>
+
+    <script>
+      function myf() {
+        gameStart();
+      }
+    </script>
+  </body>
+</html>
