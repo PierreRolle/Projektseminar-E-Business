@@ -1,0 +1,48 @@
+.manualContainer {
+  width: 550px;
+  height: 560px;
+  
+}
+
+.manualButtonContainer {
+  display:flex;
+  justify-content: space-between;
+}
+
+.closeButton {
+  background-color: transparent;
+  border: none;
+}
+
+.closeButton:hover {
+  cursor: pointer;
+  color: rgb(53, 47, 47);
+}
+
+.Button{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-basis: 40%;
+}
+
+.ItemsandEnemies{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-basis: 40%;
+}
+
+.header {
+  text-align: center;
+  margin: 0;
+}
+
+.headL{
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+.minus{
+  padding-left: 7px;
+}
