@@ -9,6 +9,11 @@
   justify-content: space-between;
 }
 
+.closeButton {
+  background-color: transparent;
+  border: none;
+}
+
 .closeButton:hover {
   cursor: pointer;
   color: rgb(53, 47, 47);
@@ -19,7 +24,6 @@
   justify-content: left;
   align-items: center;
   flex-basis: 40%;
-  
 }
 
 .ItemsandEnemies{

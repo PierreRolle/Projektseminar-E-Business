@@ -6,7 +6,7 @@
  * itemArray: Array, mit den einzelnen Items [[String]]
  * entityArray: Array, mit den einzelnen Entities (Spieler, Gegner) [[String]]
  */
-export default class Level {
+export default  class Level {
   constructor(level) {
     this.enemies = level.enemies;
     this.startPosition = level.startPosition;

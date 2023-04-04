@@ -3,7 +3,7 @@ import Field from "./Field.js";
 import Level from "./Level.js";
 import getLevelFromDb from "./LevelDB.js";
 
-export default function startGame() {
+export function startGame() {
   let canvas = document.getElementById("gameCanvas");
   let ctx = canvas.getContext("2d");
 
@@ -36,7 +36,7 @@ export default function startGame() {
    * Durchlaufen des aktuellen Levels mit der Id levelIndex
    */
   const playLevel = (levelIndex) => {
-    document.getElementById("level-count").innerHTML = game.currentLevel+1;
+    document.getElementById("level-count").innerHTML = game.currentLevel + 1;
     entityImage.onload = () => {
       game.field.drawBackground(game.level.backgroundArray);
       game.field.drawItems(game.level.itemArray);
@@ -137,10 +137,22 @@ export default function startGame() {
             game.incrementCurrentLevel();
             game.setBombCount(0);
             document.getElementById("tnt-count").innerHTML = game.bombCount;
-            document.getElementById("level-count").innerHTML = game.currentLevel+1;
+            document.getElementById("level-count").innerHTML =
+              game.currentLevel + 1;
           }
           if (game.level.checkCanEndGame(game)) {
-            window.location.href = "/end";
+            document.querySelector("#app").innerHTML = `
+              <div class="manualContainerEnd">
+                  <div class="CloseButtonContainer">
+                    <button class="closeButton" onclick="changeToMainMenu()"><img src="/static/images/Exit.png"
+                    height = "24px" width = "24px" ></button>
+                  </div>
+                  <img class="headerEnd imageEnd" src="/static/images/Schatzinsel_Überschrift.png" width = "500px">
+                  <img class="imageEnd" src="/static/images/Schatz_geborgen.png" width = "500px">
+                  <img src="/static/images/Herzlichen_Glückwunsch.png" width = "500px">
+                  <a href="/mainMenu" class="button" data-link>Zurück zum Hauptmenü!</a>
+              </div>
+              `;
           }
           break;
 

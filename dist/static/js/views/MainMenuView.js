@@ -6,7 +6,7 @@ export default class extends AbstractView {
     this.setTitle("Main Menu");
   }
 
-  async getHtml() {
+  /* getHtml() {
     return `
       <div>
         <img src="/static/images/Schatzinsel_Überschrift.png" width = "500px">
@@ -17,6 +17,22 @@ export default class extends AbstractView {
           <a href="/manual" class="button" data-link>
             Handbuch öffnen
           </a>
+        </nav>
+      </div>
+      `;
+  } */
+
+  getHtml() {
+    return `
+      <div>
+        <img src="/static/images/Schatzinsel_Überschrift.png" width = "500px">
+        <nav>
+          <button id="Spiel" class="button">
+            Spiel starten
+          </button>
+          <button id="Handbuch" class="button">
+            Handbuch öffnen
+          </button>
         </nav>
       </div>
       `;
